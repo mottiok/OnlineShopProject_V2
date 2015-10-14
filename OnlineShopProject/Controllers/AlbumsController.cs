@@ -27,7 +27,7 @@ namespace OnlineShopProject.Models
 
         public ActionResult Filter(int? genreId, int? artistId, int? decade, double? price)
         {
-            IQueryable<AlbumModel> partialView = db.AlbumModels;
+            IQueryable<AlbumModel> filterQuery = db.AlbumModels;
 
             if (decade != null)
             {
@@ -35,29 +35,31 @@ namespace OnlineShopProject.Models
                 DateTime bottomDateTime = new DateTime(intDecate, 1, 1);
                 DateTime higherDateTime = new DateTime(intDecate + 10, 1, 1);
 
-                partialView = partialView.Where(a => a.ReleaseDate >= bottomDateTime &&
+                filterQuery = filterQuery.Where(a => a.ReleaseDate >= bottomDateTime &&
                                                         a.ReleaseDate < higherDateTime);
             }
 
             if (genreId != null)
             {
                 int inGenreId = (int)genreId;
-                partialView = partialView.Where(g => g.GenreId == inGenreId);
+                filterQuery = filterQuery.Where(g => g.GenreId == inGenreId);
             }
 
             if (artistId != null)
             {
                 int intArtistId = (int)artistId;
-                partialView = partialView.Where(a => a.ArtistId == intArtistId);
+                filterQuery = filterQuery.Where(a => a.ArtistId == intArtistId);
             }
 
             if (price != null)
             {
                 double doublePrice = (double)price;
-                partialView = partialView.Where(p => p.Price >= doublePrice && p.Price <= doublePrice + 5);
+                filterQuery = filterQuery.Where(p => p.Price >= doublePrice && p.Price <= doublePrice + 5);
             }
 
-            return View(partialView);
+            SetCarModelId();
+
+            return View(filterQuery);
         }
 
 
