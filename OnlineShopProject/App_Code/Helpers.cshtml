@@ -1,6 +1,7 @@
 ﻿@using System.Collections.Specialized
 @using System.Web.Mvc
 @using System.Web.Routing
+@using OnlineShopProject.Models
 
 @helper AddParamToUrl(string name, string param, string text, UrlHelper urlHelper)
 {
@@ -16,4 +17,17 @@
     }
     
     <li><a href="@urlHelper.Action("Filter", "Albums", dic)" class="not_selected">@text</a></li>
+}
+
+@functions {
+
+    public static string GetCurrency(ApplicationUser user)
+    {
+        if (Request.IsAuthenticated)
+        {
+            //return user.CurrencyModel.Sign;
+        }
+        
+        return "$";
+    }
 }

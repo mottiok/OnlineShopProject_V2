@@ -779,10 +779,19 @@ a#scrollUp i{
 .usa {
   border-radius: 0;
   color: #B4B1AB;
-  font-size: 12px;
-  margin-right: 20px;
-  padding: 2px 15px;
+  font-size: 17px;
+  margin-right: 83px;
+  padding: 2px 12px;
   margin-top: 10px;
+}
+
+#currency ul.dropdown-menu {
+    min-width: 127px;
+    font-size: 17px;
+}
+
+#currency .dropdown-menu li a {
+    padding: 2px 53px;
 }
 
 .usa:hover {

@@ -1,0 +1,18 @@
+﻿@model IEnumerable<OnlineShopProject.Models.CurrencyModel>
+
+@{
+    Layout = null;
+}
+
+<div class="btn-group">
+    <button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown">
+        Currency - @Helpers.GetCurrency(ViewBag.user)
+        <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu">
+        @foreach (var item in Model)
+        {
+            <li><a href="">@item.Sign</a></li>
+        }
+    </ul>
+</div>
