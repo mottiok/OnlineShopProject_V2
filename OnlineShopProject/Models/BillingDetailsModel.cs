@@ -11,9 +11,13 @@ namespace OnlineShopProject.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Address { get; set; }
-        public short ZipCode { get; set; }
+        public string ZipCode { get; set; }
         public CountryModel Country { get; set; }
         public int CountryId { get; set; }
-        public int Phone { get; set; }
+        public string Phone { get; set; }
+        public string CreditCardNumber { get; set; }
+        public int ExpirationMonth { get; set; }
+        public int ExpirationYear { get; set; }
+        public int CVV2 { get; set; }
     }
 }

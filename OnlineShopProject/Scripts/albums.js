@@ -4,11 +4,22 @@ $(function () {
             newQuantity = $(this).val();
 
         $.post("/Carts/UpdateQuantityValue", { cartItemId: cartItemId, newQuantity: newQuantity }, function () {
-            
+            // Do Nothing
         });
     });
 
     $(".cart_quantity_input").keypress(function (e) {
-        return !isNaN(String.fromCharCode(e.keyCode));
+        var input = String.fromCharCode(e.keyCode);
+        if (isNaN(input)) {
+            return false;
+        }
+
+        var number = parseInt(input);
+
+        if (number <= 0) {
+            return false;
+        }
+
+        return true;
     });
 });

@@ -18,3 +18,38 @@ button.cart {
 .cart-product-image {
     width: 200px;
 }
+
+.even-margin {
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.check_out {
+    float: right;
+    margin-left: 0px;
+    margin-bottom: 50px;
+}
+
+.return_to_cart {
+    float: left;
+}
+
+.orders-cart-summary .total,
+.orders-cart-summary .cart_total,
+.orders-cart-summary .quantity,
+.orders-cart-summary .cart_quantity {
+    text-align: center;
+}
+
+.orders-cart-summary .quantity-label {
+    color: #696763;
+    font-size: 18px;
+}
+
+.place_order {
+    background: green;
+}
+
+.history-cart {
+    margin-top: 25px;
+}

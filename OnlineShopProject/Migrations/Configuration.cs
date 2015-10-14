@@ -16,7 +16,12 @@ namespace OnlineShopProject.Migrations
 
         protected override void Seed(OnlineShopProject.Models.ApplicationDbContext context)
         {
-            System.Diagnostics.Debugger.Launch();
+            context.CountryModels.AddOrUpdate(new CountryModel() { Country = "Israel" },
+                new CountryModel() { Country = "Spain" },
+                new CountryModel() { Country = "Canada" },
+                new CountryModel() { Country = "Brazil" },
+                new CountryModel() { Country = "Egypt" },
+                new CountryModel() { Country = "Japan" });
 
             GenreModel genre = new GenreModel { Name = "Pop" };
             context.GenreModels.AddOrUpdate(genre);
