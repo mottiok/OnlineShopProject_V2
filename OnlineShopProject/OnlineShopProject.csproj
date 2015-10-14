@@ -283,6 +283,8 @@
     <Content Include="Scripts\main.js" />
     <Content Include="Scripts\price-range.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="Uploads\Albums\CD_Covers\Overexposed.jpg" />
+    <Content Include="Uploads\Albums\CD_Covers\V.jpg" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -386,6 +388,7 @@
     <Content Include="Views\Currency\Details.cshtml" />
     <Content Include="Views\Currency\Edit.cshtml" />
     <Content Include="Views\Currency\Index.cshtml" />
+    <Content Include="Views\Artists\AdminIndex.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
