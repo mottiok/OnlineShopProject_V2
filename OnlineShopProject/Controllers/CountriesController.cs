@@ -20,6 +20,11 @@ namespace OnlineShopProject
             return View(db.CountryModels.ToList());
         }
 
+        public ActionResult AdminIndex()
+        {
+            return View(db.CountryModels.ToList());
+        }
+
         // GET: Countries/Details/5
         public ActionResult Details(int? id)
         {
@@ -52,7 +57,7 @@ namespace OnlineShopProject
             {
                 db.CountryModels.Add(countryModel);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("AdminIndex");
             }
 
             return View(countryModel);
@@ -84,7 +89,7 @@ namespace OnlineShopProject
             {
                 db.Entry(countryModel).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("AdminIndex");
             }
             return View(countryModel);
         }
@@ -112,7 +117,7 @@ namespace OnlineShopProject
             CountryModel countryModel = db.CountryModels.Find(id);
             db.CountryModels.Remove(countryModel);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("AdminIndex");
         }
 
         protected override void Dispose(bool disposing)

@@ -389,6 +389,10 @@
     <Content Include="Views\Currency\Edit.cshtml" />
     <Content Include="Views\Currency\Index.cshtml" />
     <Content Include="Views\Artists\AdminIndex.cshtml" />
+    <Content Include="Views\Albums\AdminIndex.cshtml" />
+    <Content Include="Views\Countries\AdminIndex.cshtml" />
+    <Content Include="Views\Genres\AdminIndex.cshtml" />
+    <Content Include="Views\Reviews\AdminIndex.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -71,3 +71,12 @@ button.cart {
 .new-item-admin {
     margin-left: 41px;
 }
+
+.admin-title {
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+}
+
+.edit-album-image {
+    width: 200px;
+}

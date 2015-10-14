@@ -57,7 +57,7 @@ namespace OnlineShopProject
             {
                 db.ArtistModels.Add(artistModel);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("AdminIndex");
             }
 
             return View(artistModel);
@@ -89,7 +89,7 @@ namespace OnlineShopProject
             {
                 db.Entry(artistModel).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("AdminIndex");
             }
             return View(artistModel);
         }
@@ -117,7 +117,7 @@ namespace OnlineShopProject
             ArtistModel artistModel = db.ArtistModels.Find(id);
             db.ArtistModels.Remove(artistModel);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("AdminIndex");
         }
 
         protected override void Dispose(bool disposing)

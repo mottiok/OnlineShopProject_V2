@@ -1,9 +1,14 @@
-﻿@model IEnumerable<OnlineShopProject.Models.ArtistModel>
+﻿@using System.Collections.Specialized
+@model IEnumerable<OnlineShopProject.Models.GenreModel>
+
+@{
+    ViewBag.Title = "Index";
+}
 
 <section>
     <div class="container">
         <div class="row">
-            <h2 class="title text-center admin-title">Edit Artists Items</h2>
+            <h2 class="title text-center admin-title">Edit Genres Items</h2>
             <table class="table">
                 <tr>
                     <th>
@@ -11,6 +16,7 @@
                     </th>
                     <th></th>
                 </tr>
+
                 @foreach (var item in Model)
                 {
                     <tr>
@@ -23,6 +29,7 @@
                         </td>
                     </tr>
                 }
+
             </table>
         </div>
     </div>

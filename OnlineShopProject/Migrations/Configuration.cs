@@ -1,6 +1,7 @@
 namespace OnlineShopProject.Migrations
 {
     using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.EntityFramework;
     using OnlineShopProject.Models;
     using System;
     using System.Data.Entity;
@@ -16,6 +17,8 @@ namespace OnlineShopProject.Migrations
 
         protected override void Seed(OnlineShopProject.Models.ApplicationDbContext context)
         {
+            PasswordHasher hasher = new PasswordHasher();
+
             #region Countries
 
             context.CountryModels.AddOrUpdate(new CountryModel() { Country = "Israel" },
@@ -55,6 +58,7 @@ namespace OnlineShopProject.Migrations
             CartModel cart2 = new CartModel();
             CartModel cart3 = new CartModel();
             CartModel cart4 = new CartModel();
+            CartModel cart5 = new CartModel();
 
             #region Maroon 5
 
@@ -92,7 +96,7 @@ namespace OnlineShopProject.Migrations
                 Content = "LOVE it! I listen to Maroon 5 when I go out walking/running ... their music energizes/motivates me and makes the time fly by. There isn't a song on here I don't like which rarely happens....usually have to skip through some. I especially like \"Maps\" but \"It Was Always You\" has to be my favorite!",
                 CreatedAt = DateTime.Now,
                 Rating = 5,
-                ApplicationUser = new ApplicationUser { UserName = "Paula", PasswordHash = new PasswordHasher().HashPassword("Password1"), Email = "paula@gmail.com", CartModel = cart1, CurrencyModel = currency1}
+                ApplicationUser = new ApplicationUser { UserName = "Paula", PasswordHash = hasher.HashPassword("Password1"), Email = "paula@gmail.com", CartModel = cart1, CurrencyModel = currency1 }
             });
 
             vDelux.Reviews.Add(new ReviewModel
@@ -101,7 +105,7 @@ namespace OnlineShopProject.Migrations
                 Content = "This is, in my opinion, the best Maroon 5 album of their career! That's saying a lot, as every album has been solid. There is something to be said for taking a year or two between albums. If you notice, those always seem to be the biggest hits. I believe Maroon 5 has another hit on their hands with V. Their first single, \"Maps\", tells a gripping story that's helped by a fantastic video. \"Animals\" is probably my favorite track. Then again, there's the track \"In Your Pocket\", which is so catchy. ",
                 CreatedAt = DateTime.Now,
                 Rating = 5,
-                ApplicationUser = new ApplicationUser { UserName = "Andy", PasswordHash = new PasswordHasher().HashPassword("Password1"), Email = "andy@gmail.com", CartModel = cart2, CurrencyModel = currency3}
+                ApplicationUser = new ApplicationUser { UserName = "Andy", PasswordHash = hasher.HashPassword("Password1"), Email = "andy@gmail.com", CartModel = cart2, CurrencyModel = currency3 }
             });
 
             context.AlbumModels.AddOrUpdate(vDelux);
@@ -140,7 +144,7 @@ namespace OnlineShopProject.Migrations
                 Content = "The irony of titling their new album \"Overexposed\" must have been lost on Adam Levine and Maroon 5. The album is overproduced, over-compressed and over-just-about-everything.",
                 CreatedAt = DateTime.Now,
                 Rating = 3,
-                ApplicationUser = new ApplicationUser { UserName = "Tim", PasswordHash = new PasswordHasher().HashPassword("Password1"), Email = "tim@gmail.com", CartModel = cart3, CurrencyModel = currency2}
+                ApplicationUser = new ApplicationUser { UserName = "Tim", PasswordHash = hasher.HashPassword("Password1"), Email = "tim@gmail.com", CartModel = cart3, CurrencyModel = currency2 }
             });
 
             context.AlbumModels.AddOrUpdate(overExposed);
@@ -182,7 +186,7 @@ namespace OnlineShopProject.Migrations
                 Content = "Okay, not everyone will agree with me when I call this 'pop', but personally I think Maroon 5 is just about the best pop music around at the moment.",
                 CreatedAt = new DateTime(2005, 6, 5),
                 Rating = 3,
-                ApplicationUser = new ApplicationUser { UserName = "T.MOBS", PasswordHash = new PasswordHasher().HashPassword("Password1"), Email = "tmobs@gmail.com", CartModel = cart4, CurrencyModel = currency1}
+                ApplicationUser = new ApplicationUser { UserName = "T.MOBS", PasswordHash = hasher.HashPassword("Password1"), Email = "tmobs@gmail.com", CartModel = cart4, CurrencyModel = currency1 }
             });
 
             context.AlbumModels.AddOrUpdate(songsAboutJane);
@@ -192,6 +196,24 @@ namespace OnlineShopProject.Migrations
             #endregion
 
             context.CartModels.AddOrUpdate(cart1, cart2, cart3, cart4);
+
+            #region Roles
+
+            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
+            roleManager.Create(new IdentityRole("Admins"));
+
+            //var store = new UserStore<ApplicationUser>(context);
+            //var manager = new UserManager<ApplicationUser>(store);
+            //var user = new ApplicationUser { UserName = "admin", Email = "admin@gmail.com", CartModel = cart5, CurrencyModel = currency1 };
+
+            //manager.Create(user, "Admin1!");
+
+            //context.SaveChanges();
+
+            //manager.AddToRole(user.Id, "Admins");
+
+            //context.SaveChanges();
+            #endregion
         }
 
     }
