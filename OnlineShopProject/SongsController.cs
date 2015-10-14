@@ -1,0 +1,132 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
+using System.Linq;
+using System.Net;
+using System.Web;
+using System.Web.Mvc;
+using OnlineShopProject.Models;
+
+namespace OnlineShopProject
+{
+    public class SongsController : Controller
+    {
+        private ApplicationDbContext db = new ApplicationDbContext();
+
+        // GET: Songs
+        public ActionResult Index()
+        {
+            var songModels = db.SongModels.Include(s => s.Album);
+            return View(songModels.ToList());
+        }
+
+        // GET: Songs/Details/5
+        public ActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            SongModel songModel = db.SongModels.Find(id);
+            if (songModel == null)
+            {
+                return HttpNotFound();
+            }
+            return View(songModel);
+        }
+
+        // GET: Songs/Create
+        public ActionResult Create()
+        {
+            ViewBag.AlbumId = new SelectList(db.AlbumModels, "Id", "Name");
+            return View();
+        }
+
+        // POST: Songs/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "Id,Name,AlbumId,Duration")] SongModel songModel)
+        {
+            if (ModelState.IsValid)
+            {
+                db.SongModels.Add(songModel);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            ViewBag.AlbumId = new SelectList(db.AlbumModels, "Id", "Name", songModel.AlbumId);
+            return View(songModel);
+        }
+
+        // GET: Songs/Edit/5
+        public ActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            SongModel songModel = db.SongModels.Find(id);
+            if (songModel == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.AlbumId = new SelectList(db.AlbumModels, "Id", "Name", songModel.AlbumId);
+            return View(songModel);
+        }
+
+        // POST: Songs/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "Id,Name,AlbumId,Duration")] SongModel songModel)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(songModel).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            ViewBag.AlbumId = new SelectList(db.AlbumModels, "Id", "Name", songModel.AlbumId);
+            return View(songModel);
+        }
+
+        // GET: Songs/Delete/5
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            SongModel songModel = db.SongModels.Find(id);
+            if (songModel == null)
+            {
+                return HttpNotFound();
+            }
+            return View(songModel);
+        }
+
+        // POST: Songs/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            SongModel songModel = db.SongModels.Find(id);
+            db.SongModels.Remove(songModel);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+    }
+}

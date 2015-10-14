@@ -1,0 +1,20 @@
+﻿#songs .song {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+button.cart {
+    margin-left: 0px;
+}
+
+.underline {
+    text-decoration: underline;
+}
+
+#logoutForm {
+    margin-top: 10px;
+}
+
+.cart-product-image {
+    width: 200px;
+}

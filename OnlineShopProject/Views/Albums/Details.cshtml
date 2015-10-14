@@ -1,0 +1,134 @@
+﻿@model OnlineShopProject.Models.AlbumModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-3">
+                @Html.Partial("_FacetsPartial")
+            </div>
+            <div class="col-sm-9 padding-right">
+                <div class="product-details">
+                    <!--product-details-->
+                    <div class="col-sm-5">
+                        <div class="view-product">
+                            <img src="@Model.ImagePath" alt="">
+                        </div>
+                    </div>
+                    <div class="col-sm-7">
+                        <div class="product-information">
+                            <!--/product-information-->
+                            <h2>@Model.Name</h2>
+                            <p>By @Model.Artist.Name</p>
+                            <span>
+                                <span>US $@Model.Price</span>
+                            </span>
+                            <div>
+                                @if (Request.IsAuthenticated)
+                                {
+                                    <form action="@Url.Action("Create", "CartItems")" method="post">
+                                        @Html.AntiForgeryToken()
+                                        @Html.Hidden("AlbumId", Model.Id)
+                                        @Html.Hidden("CartModelId", (int)ViewBag.CartModelId)
+                                        <div>
+                                            <label>Quantity:</label>
+                                            <input type="number" name="Quantity" value="1" min="1">
+                                        </div>
+                                        <button type="submit" class="btn btn-fefault cart">
+                                            <i class="fa fa-shopping-cart"></i>
+                                            Add to cart
+                                        </button>
+                                    </form>
+                                }
+                                else
+                                {
+                                    <span class="text-danger">Please <a href="@Url.Action("Login", "Account")" class="underline">login</a> to add to cart.</span>
+                                }
+                            </div>
+                            <p><b>Release Date:</b> @Model.ReleaseDate.ToShortDateString()</p>
+                            <p><b>Genre:</b> @Model.Genre.Name</p>
+                        </div><!--/product-information-->
+                    </div>
+                </div><!--/product-details-->
+
+                <div class="category-tab shop-details-tab">
+                    <!--category-tab-->
+                    <div class="col-sm-12">
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a href="#songs" data-toggle="tab">Songs</a></li>
+                            <li><a href="#reviews" data-toggle="tab">Reviews (@Model.Reviews.Count)</a></li>
+                        </ul>
+                    </div>
+                    <div class="tab-content">
+                        <div class="tab-pane fade active in" id="songs">
+                            @for (int i = 1; i <= Model.Songs.Count; i++)
+                            {
+                                OnlineShopProject.Models.SongModel song = Model.Songs[i - 1];
+                                <div class="row song">
+                                    <div class="col-sm-2 number">@i</div>
+                                    <div class="col-md-6">@song.Name</div>
+                                    <div class="col-md-4">@TimeSpan.FromSeconds(song.Duration).ToString(@"mm\:ss")</div>
+                                </div>
+                            }
+                        </div>
+                        <div class="tab-pane fade" id="reviews">
+                            <div class="col-sm-12">
+                                @foreach (OnlineShopProject.Models.ReviewModel review in Model.Reviews)
+                                {
+                                    <ul>
+                                        <li>
+                                            <a href="#">
+                                                <i class="fa fa-user"></i>
+                                                @if (review.ApplicationUser != null)
+                                                {
+                                                    <span>@review.ApplicationUser.UserName</span>
+                                                }
+                                                else
+                                                {
+                                                    <span>Anonymous</span>
+                                                }
+                                            </a>
+                                        </li>
+                                        <li><a href="#"><i class="fa fa-clock-o"></i>@review.CreatedAt.ToShortTimeString()</a></li>
+                                        <li><a href="#"><i class="fa fa-calendar-o"></i>@review.CreatedAt.ToShortDateString()</a></li>
+                                        <li>
+                                            <a href="#">
+                                                @if (review.Rating < 2)
+                                                {
+                                                    <i class="fa fa-frown-o"></i>
+                                                }
+
+                                                @if (review.Rating == 2 || review.Rating == 3)
+                                                {
+                                                    <i class="fa fa-meh-o"></i>
+                                                }
+
+                                                @if (review.Rating > 3)
+                                                {
+                                                    <i class="fa fa-smile-o"></i>
+                                                }
+                                            </a>
+                                        </li>
+                                    </ul>
+                                    <p>@review.Content</p>
+                                }
+                                <p><b>Write Your Review</b></p>
+                                <form action="@Url.Action("Create", "Reviews")" method="post">
+                                    @Html.AntiForgeryToken()
+                                    @Html.Hidden("AlbumModelId", Model.Id)
+                                    <textarea name="Content"></textarea>
+                                    <b>Rating: </b> <input type="number" name="Rating" value="5" min="1" max="5">
+                                    <input type="submit" value="Submit" class="btn btn-default pull-right">
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
+                </div><!--/category-tab-->
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,132 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
+using System.Linq;
+using System.Net;
+using System.Web;
+using System.Web.Mvc;
+using OnlineShopProject.Models;
+
+namespace OnlineShopProject
+{
+    public class OrderItemsController : Controller
+    {
+        private ApplicationDbContext db = new ApplicationDbContext();
+
+        // GET: OrderItems
+        public ActionResult Index()
+        {
+            var orderItemModels = db.OrderItemModels.Include(o => o.Album);
+            return View(orderItemModels.ToList());
+        }
+
+        // GET: OrderItems/Details/5
+        public ActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            OrderItemModel orderItemModel = db.OrderItemModels.Find(id);
+            if (orderItemModel == null)
+            {
+                return HttpNotFound();
+            }
+            return View(orderItemModel);
+        }
+
+        // GET: OrderItems/Create
+        public ActionResult Create()
+        {
+            ViewBag.AlbumId = new SelectList(db.AlbumModels, "Id", "Name");
+            return View();
+        }
+
+        // POST: OrderItems/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "Id,AlbumId,Quantity,Price")] OrderItemModel orderItemModel)
+        {
+            if (ModelState.IsValid)
+            {
+                db.OrderItemModels.Add(orderItemModel);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            ViewBag.AlbumId = new SelectList(db.AlbumModels, "Id", "Name", orderItemModel.AlbumId);
+            return View(orderItemModel);
+        }
+
+        // GET: OrderItems/Edit/5
+        public ActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            OrderItemModel orderItemModel = db.OrderItemModels.Find(id);
+            if (orderItemModel == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.AlbumId = new SelectList(db.AlbumModels, "Id", "Name", orderItemModel.AlbumId);
+            return View(orderItemModel);
+        }
+
+        // POST: OrderItems/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "Id,AlbumId,Quantity,Price")] OrderItemModel orderItemModel)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(orderItemModel).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            ViewBag.AlbumId = new SelectList(db.AlbumModels, "Id", "Name", orderItemModel.AlbumId);
+            return View(orderItemModel);
+        }
+
+        // GET: OrderItems/Delete/5
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            OrderItemModel orderItemModel = db.OrderItemModels.Find(id);
+            if (orderItemModel == null)
+            {
+                return HttpNotFound();
+            }
+            return View(orderItemModel);
+        }
+
+        // POST: OrderItems/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            OrderItemModel orderItemModel = db.OrderItemModels.Find(id);
+            db.OrderItemModels.Remove(orderItemModel);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+    }
+}

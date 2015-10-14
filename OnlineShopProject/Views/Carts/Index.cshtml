@@ -1,0 +1,67 @@
+﻿@model OnlineShopProject.Models.CartModel
+
+@{
+    ViewBag.Title = "Index";
+}
+<section id="cart_items">
+    <div class="container">
+        @* TODO: COOL MENU - USE IN SITE! *@
+        <div class="breadcrumbs">
+            <ol class="breadcrumb">
+                <li><a href="#">Home</a></li>
+                <li class="active">Shopping Cart</li>
+            </ol>
+        </div>
+        <div class="table-responsive cart_info">
+            @if (Model.CartItems.Count == 0)
+            {
+                <h2 class="text-center">No items in cart.</h2>   
+            }
+            else
+            {
+                <table class="table table-condensed">
+                    <thead>
+                        <tr class="cart_menu">
+                            <td class="image">Item</td>
+                            <td class="description"></td>
+                            <td class="price">Price</td>
+                            <td class="quantity">Quantity</td>
+                            <td class="total">Total</td>
+                            <td></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.CartItems)
+                        {
+                            <tr>
+                                <td class="cart_product">
+                                    <a href=""><img src="@item.Album.ImagePath" alt="" class="cart-product-image"></a>
+                                </td>
+                                <td class="cart_description">
+                                    <h4><a href="">@item.Album.Name</a></h4>
+                                    <p>By @item.Album.Artist.Name</p>
+                                </td>
+                                <td class="cart_price">
+                                    <p>$@item.Album.Price</p>
+                                </td>
+                                <td class="cart_quantity" data-cart-item-id="@item.Id">
+                                    <div class="cart_quantity_button">
+                                        <a class="cart_quantity_up" href="@Url.Action("UpdateQuantity", "Carts", new { cartItemId = item.Id, changeVector = 1 })"> + </a>
+                                        <input class="cart_quantity_input" type="text" name="quantity" value="@item.Quantity" autocomplete="off" size="2">
+                                        <a class="cart_quantity_down" href="@Url.Action("UpdateQuantity", "Carts", new { cartItemId = item.Id, changeVector = -1 })"> - </a>
+                                    </div>
+                                </td>
+                                <td class="cart_total">
+                                    <p class="cart_total_price">$ @(item.Album.Price * item.Quantity)</p>
+                                </td>
+                                <td class="cart_delete">
+                                    <a class="cart_quantity_delete" href="@Url.Action("Delete", "CartItems", new { id = item.Id })"><i class="fa fa-times"></i></a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        </div>
+    </div>
+</section>
