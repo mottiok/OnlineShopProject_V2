@@ -29,7 +29,7 @@
                     <h2 class="or or-admin">OR</h2>
                 </div>
                 <div class="col-sm-2">
-                    <a class="btn btn-default cart edit-item-admin" href="@Url.Action("Details", "Albums")">Edit Items</a>
+                    <a class="btn btn-default cart edit-item-admin" href="@Url.Action("AdminIndex", "Albums")">Edit Items</a>
                 </div>
             </div>
             <h2 class="title text-center">Countries</h2>
@@ -42,7 +42,34 @@
                     <h2 class="or or-admin">OR</h2>
                 </div>
                 <div class="col-sm-2">
-                    <a class="btn btn-default cart edit-item-admin" href="@Url.Action("Details", "Countries")">Edit Items</a>
+                    <a class="btn btn-default cart edit-item-admin" href="@Url.Action("AdminIndex", "Countries")">Edit Items</a>
+                </div>
+            </div>
+            <h2 class="title text-center">Genres</h2>
+            <div class="row">
+                <div class="col-sm-4"></div>
+                <div class="col-sm-2">
+                    <a class="btn btn-default cart new-item-admin" href="@Url.Action("Create", "Genres")">Create New</a>
+                </div>
+                <div class="col-sm-1">
+                    <h2 class="or or-admin">OR</h2>
+                </div>
+                <div class="col-sm-2">
+                    <!-- TODO: DO NOT DELETE MODELS IF THEIRE ARE CONNECTED - RETURN SUMMARY ERROR -->
+                    <a class="btn btn-default cart edit-item-admin" href="@Url.Action("AdminIndex", "Genres")">Edit Items</a>
+                </div>
+            </div>
+            <h2 class="title text-center">Reviews</h2>
+            <div class="row">
+                <div class="col-sm-4"></div>
+                <div class="col-sm-2">
+                    <a class="btn btn-default cart new-item-admin" href="@Url.Action("Create", "Reviews")">Create New</a>
+                </div>
+                <div class="col-sm-1">
+                    <h2 class="or or-admin">OR</h2>
+                </div>
+                <div class="col-sm-2">
+                    <a class="btn btn-default cart edit-item-admin" href="@Url.Action("AdminIndex", "Reviews")">Edit Items</a>
                 </div>
             </div>
         </div>

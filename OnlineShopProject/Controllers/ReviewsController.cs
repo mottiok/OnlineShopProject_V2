@@ -21,6 +21,12 @@ namespace OnlineShopProject.Controllers
             return View(reviewModels.ToList());
         }
 
+        public ActionResult AdminIndex()
+        {
+            var reviewModels = db.ReviewModels.Include(r => r.AlbumModel);
+            return View(reviewModels.ToList());
+        }
+
         // GET: Reviews/Details/5
         public ActionResult Details(int? id)
         {

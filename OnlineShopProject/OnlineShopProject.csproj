@@ -290,6 +290,8 @@
     <Content Include="Scripts\main.js" />
     <Content Include="Scripts\price-range.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="Uploads\Albums\CD_Covers\Overexposed.jpg" />
+    <Content Include="Uploads\Albums\CD_Covers\V.jpg" />
     <None Include="Service References\CurrencyReference\configuration91.svcinfo" />
     <None Include="Service References\CurrencyReference\configuration.svcinfo" />
     <None Include="Service References\CurrencyReference\Reference.svcmap">
@@ -400,6 +402,11 @@
     <Content Include="Views\Currency\Details.cshtml" />
     <Content Include="Views\Currency\Edit.cshtml" />
     <Content Include="Views\Currency\Index.cshtml" />
+    <Content Include="Views\Artists\AdminIndex.cshtml" />
+    <Content Include="Views\Albums\AdminIndex.cshtml" />
+    <Content Include="Views\Countries\AdminIndex.cshtml" />
+    <Content Include="Views\Genres\AdminIndex.cshtml" />
+    <Content Include="Views\Reviews\AdminIndex.cshtml" />
     <None Include="Service References\CurrencyReference\CurrencyConvertor.wsdl" />
   </ItemGroup>
   <ItemGroup>

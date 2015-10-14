@@ -20,6 +20,11 @@ namespace OnlineShopProject
             return PartialView(db.GenreModels.ToList());
         }
 
+        public ActionResult AdminIndex()
+        {
+            return View(db.GenreModels.ToList());
+        }
+
         // GET: Genres/Details/5
         public ActionResult Details(int? id)
         {
@@ -52,7 +57,7 @@ namespace OnlineShopProject
             {
                 db.GenreModels.Add(genreModel);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("AdminIndex");
             }
 
             return View(genreModel);
@@ -84,7 +89,7 @@ namespace OnlineShopProject
             {
                 db.Entry(genreModel).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("AdminIndex");
             }
             return View(genreModel);
         }
@@ -112,7 +117,7 @@ namespace OnlineShopProject
             GenreModel genreModel = db.GenreModels.Find(id);
             db.GenreModels.Remove(genreModel);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("AdminIndex");
         }
 
         protected override void Dispose(bool disposing)

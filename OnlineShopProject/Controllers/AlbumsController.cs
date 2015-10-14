@@ -7,6 +7,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
+using System.IO;
+using OnlineShopProject.Controllers;
 
 namespace OnlineShopProject.Models
 {
@@ -37,6 +39,16 @@ namespace OnlineShopProject.Models
             }
 
             return null;
+        }
+        public ActionResult AdminIndex()
+        {
+            if (!IsAdmin())
+            {
+                return RedirectToAction("Index", "Albums");
+            }
+
+            var albumModels = db.AlbumModels.Include(a => a.Artist).Include(a => a.Genre);
+            return View(albumModels.ToList());
         }
 
         public ActionResult Filter(int? genreId, int? artistId, int? decade, double? price)
@@ -105,6 +117,11 @@ namespace OnlineShopProject.Models
         // GET: Albums/Create
         public ActionResult Create()
         {
+            if (!IsAdmin())
+            {
+                return RedirectToAction("Index", "Albums");
+            }
+
             ViewBag.ArtistId = new SelectList(db.ArtistModels, "Id", "Name");
             ViewBag.GenreId = new SelectList(db.GenreModels, "Id", "Name");
             return View();
@@ -115,13 +132,26 @@ namespace OnlineShopProject.Models
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,ArtistId,ReleaseDate,GenreId,Name,Price")] AlbumModel albumModel)
+        public ActionResult Create([Bind(Include = "Id,ArtistId,ReleaseDate,GenreId,Name,Price")] AlbumModel albumModel, HttpPostedFileBase image)
         {
+            if (!IsAdmin())
+            {
+                return RedirectToAction("Index", "Albums");
+            }
+
             if (ModelState.IsValid)
             {
+                if (image != null && image.ContentLength > 0)
+                {
+                    string path = Server.MapPath("~//Uploads/Albums/CD_Covers");
+                    string fullPath = Path.Combine(path, image.FileName);
+                    image.SaveAs(fullPath);
+                    albumModel.ImagePath = "/Uploads/Albums/CD_Covers/" + image.FileName;
+                }
+
                 db.AlbumModels.Add(albumModel);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("AdminIndex");
             }
 
             ViewBag.ArtistId = new SelectList(db.ArtistModels, "Id", "Name", albumModel.ArtistId);
@@ -132,6 +162,11 @@ namespace OnlineShopProject.Models
         // GET: Albums/Edit/5
         public ActionResult Edit(int? id)
         {
+            if (!IsAdmin())
+            {
+                return RedirectToAction("Index", "Albums");
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -141,6 +176,7 @@ namespace OnlineShopProject.Models
             {
                 return HttpNotFound();
             }
+
             ViewBag.ArtistId = new SelectList(db.ArtistModels, "Id", "Name", albumModel.ArtistId);
             ViewBag.GenreId = new SelectList(db.GenreModels, "Id", "Name", albumModel.GenreId);
             return View(albumModel);
@@ -151,14 +187,29 @@ namespace OnlineShopProject.Models
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,ArtistId,ReleaseDate,GenreId,Name,Price")] AlbumModel albumModel)
+        public ActionResult Edit([Bind(Include = "Id,ArtistId,ReleaseDate,GenreId,Name,Price,ImagePath")] AlbumModel albumModel, HttpPostedFileBase image)
         {
+            if (!IsAdmin())
+        {
+                return RedirectToAction("Index", "Albums");
+            }
+
             if (ModelState.IsValid)
             {
                 db.Entry(albumModel).State = EntityState.Modified;
+
+                if (image != null && image.ContentLength > 0)
+                {
+                    string path = Server.MapPath("~//Uploads/Albums/CD_Covers");
+                    string fullPath = Path.Combine(path, image.FileName);
+                    image.SaveAs(fullPath);
+                    albumModel.ImagePath = "/Uploads/Albums/CD_Covers/" + image.FileName;
+                }
+
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("AdminIndex");
             }
+
             ViewBag.ArtistId = new SelectList(db.ArtistModels, "Id", "Name", albumModel.ArtistId);
             ViewBag.GenreId = new SelectList(db.GenreModels, "Id", "Name", albumModel.GenreId);
             return View(albumModel);
@@ -167,6 +218,11 @@ namespace OnlineShopProject.Models
         // GET: Albums/Delete/5
         public ActionResult Delete(int? id)
         {
+            if (!IsAdmin())
+            {
+                return RedirectToAction("Index", "Albums");
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -184,10 +240,15 @@ namespace OnlineShopProject.Models
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            if (!IsAdmin())
+            {
+                return RedirectToAction("Index", "Albums");
+            }
+
             AlbumModel albumModel = db.AlbumModels.Find(id);
             db.AlbumModels.Remove(albumModel);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("AdminIndex");
         }
 
         private void SetCarModelId()
@@ -197,6 +258,12 @@ namespace OnlineShopProject.Models
                 ApplicationUser currentUser = db.Users.Find(User.Identity.GetUserId());
                 ViewBag.CartModelId = currentUser.CartModelId;
             }
+        }
+
+        public bool IsAdmin()
+        {
+            return true; // TODO: NEED FIXING
+            //return User.IsInRole("Admins");
         }
 
         protected override void Dispose(bool disposing)

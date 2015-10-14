@@ -1,21 +1,26 @@
-﻿@model IEnumerable<OnlineShopProject.Models.ArtistModel>
+﻿@model IEnumerable<OnlineShopProject.Models.CountryModel>
+
+@{
+    ViewBag.Title = "Index";
+}
 
 <section>
     <div class="container">
         <div class="row">
-            <h2 class="title text-center admin-title">Edit Artists Items</h2>
+            <h2 class="title text-center admin-title">Edit Countries Items</h2>
             <table class="table">
                 <tr>
                     <th>
-                        @Html.DisplayNameFor(model => model.Name)
+                        @Html.DisplayNameFor(model => model.Country)
                     </th>
                     <th></th>
                 </tr>
+
                 @foreach (var item in Model)
                 {
                     <tr>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Name)
+                            @Html.DisplayFor(modelItem => item.Country)
                         </td>
                         <td>
                             @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
@@ -23,6 +28,7 @@
                         </td>
                     </tr>
                 }
+
             </table>
         </div>
     </div>
