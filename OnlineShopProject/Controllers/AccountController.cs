@@ -97,11 +97,13 @@ namespace OnlineShopProject.Controllers
                 db.CartModels.Add(cart);
                 db.SaveChanges();
                 user.CartModel = cart;
+
+                user.CurrencyModelId = db.CurrencyModels.First().Id;
+
                 IdentityResult result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
                     await SignInAsync(user, isPersistent: false);
-
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);

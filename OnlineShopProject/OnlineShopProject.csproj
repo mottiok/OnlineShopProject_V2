@@ -163,6 +163,7 @@
     <Compile Include="Controllers\BillingDetailsController.cs" />
     <Compile Include="Controllers\CartItemsController.cs" />
     <Compile Include="Controllers\CartsController.cs" />
+    <Compile Include="Controllers\CurrencyController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\CountriesController.cs" />
     <Compile Include="Controllers\GenresController.cs" />
@@ -180,6 +181,7 @@
     <Compile Include="Models\CartItemModel.cs" />
     <Compile Include="Models\CartModel.cs" />
     <Compile Include="Models\CountryModel.cs" />
+    <Compile Include="Models\CurrencyModel.cs" />
     <Compile Include="Models\GenreModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ImageModel.cs" />
@@ -379,7 +381,11 @@
     <Content Include="Views\BillingDetails\Details.cshtml" />
     <Content Include="Views\BillingDetails\Edit.cshtml" />
     <Content Include="Views\BillingDetails\Index.cshtml" />
-    <Content Include="Views\Artists\AdminIndex.cshtml" />
+    <Content Include="Views\Currency\Create.cshtml" />
+    <Content Include="Views\Currency\Delete.cshtml" />
+    <Content Include="Views\Currency\Details.cshtml" />
+    <Content Include="Views\Currency\Edit.cshtml" />
+    <Content Include="Views\Currency\Index.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

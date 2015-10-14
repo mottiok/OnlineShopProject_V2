@@ -16,6 +16,9 @@ namespace OnlineShopProject.Models
             return userIdentity;
         }
 
+        public CurrencyModel CurrencyModel { get; set; }
+
+        public int CurrencyModelId { get; set; }
         public CartModel CartModel { get; set; }
         public int CartModelId { get; set; }
     }
@@ -55,5 +58,7 @@ namespace OnlineShopProject.Models
         public System.Data.Entity.DbSet<OnlineShopProject.Models.SongModel> SongModels { get; set; }
 
         public System.Data.Entity.DbSet<OnlineShopProject.Models.OrderItemModel> OrderItemModels { get; set; }
+
+        public System.Data.Entity.DbSet<OnlineShopProject.Models.CurrencyModel> CurrencyModels { get; set; }
     }
 }
