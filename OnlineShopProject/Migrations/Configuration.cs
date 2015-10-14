@@ -16,12 +16,17 @@ namespace OnlineShopProject.Migrations
 
         protected override void Seed(OnlineShopProject.Models.ApplicationDbContext context)
         {
+            #region Countries
+
             context.CountryModels.AddOrUpdate(new CountryModel() { Country = "Israel" },
-                new CountryModel() { Country = "Spain" },
-                new CountryModel() { Country = "Canada" },
-                new CountryModel() { Country = "Brazil" },
-                new CountryModel() { Country = "Egypt" },
-                new CountryModel() { Country = "Japan" });
+                    new CountryModel() { Country = "Spain" },
+                    new CountryModel() { Country = "Canada" },
+                    new CountryModel() { Country = "Brazil" },
+                    new CountryModel() { Country = "Egypt" },
+                    new CountryModel() { Country = "Japan" }); 
+
+            #endregion
+
             #region Currency
 
             CurrencyModel currency1 = new CurrencyModel { Sign = "$" };
