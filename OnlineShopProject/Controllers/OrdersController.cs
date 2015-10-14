@@ -111,6 +111,7 @@ namespace OnlineShopProject.Controllers
                 });
             }
 
+            db.CartItemModels.RemoveRange(cartModel.CartItems);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
