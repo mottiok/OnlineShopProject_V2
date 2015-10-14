@@ -14,6 +14,12 @@
             </ol>
         </div><!--/breadcrums-->
         @{ int orderIndex = Model.Count(); }
+
+        @if (orderIndex <= 0)
+        {
+            <h2 class="text-center even-margin">No orders found.</h2>   
+        }
+
         @foreach (var orderModel in Model)
         {
             <div class="review-payment">

@@ -53,3 +53,21 @@ button.cart {
 .history-cart {
     margin-top: 25px;
 }
+
+.breadcrumb-light {
+    margin-bottom: 20px;
+}
+
+.or-admin {
+    margin-left: -40px;
+    margin-top: -9px;
+    margin-bottom: 25px;
+}
+
+.edit-item-admin {
+    margin-left: -70px;
+}
+
+.new-item-admin {
+    margin-left: 41px;
+}
