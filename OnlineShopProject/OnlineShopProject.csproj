@@ -160,6 +160,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\ArtistsController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BillingDetailsController.cs" />
     <Compile Include="Controllers\CartItemsController.cs" />
     <Compile Include="Controllers\CartsController.cs" />
     <Compile Include="Controllers\CurrencyController.cs" />
@@ -176,7 +177,6 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Controllers\AlbumsController.cs" />
     <Compile Include="Models\ArtistModel.cs" />
-    <Compile Include="Controllers\BillingDetailsController.cs" />
     <Compile Include="Models\BillingDetailsModel.cs" />
     <Compile Include="Models\CartItemModel.cs" />
     <Compile Include="Models\CartModel.cs" />
@@ -335,11 +335,6 @@
     <Content Include="Views\Countries\Details.cshtml" />
     <Content Include="Views\Countries\Edit.cshtml" />
     <Content Include="Views\Countries\Index.cshtml" />
-    <Content Include="Views\BillingDetails\Create.cshtml" />
-    <Content Include="Views\BillingDetails\Delete.cshtml" />
-    <Content Include="Views\BillingDetails\Details.cshtml" />
-    <Content Include="Views\BillingDetails\Edit.cshtml" />
-    <Content Include="Views\BillingDetails\Index.cshtml" />
     <Content Include="Views\OrderItems\Create.cshtml" />
     <Content Include="Views\OrderItems\Delete.cshtml" />
     <Content Include="Views\OrderItems\Details.cshtml" />
@@ -381,6 +376,11 @@
     <Content Include="Views\CartItems\Index.cshtml" />
     <Content Include="Views\Albums\Filter.cshtml" />
     <Content Include="Views\Albums\_List.cshtml" />
+    <Content Include="Views\BillingDetails\Create.cshtml" />
+    <Content Include="Views\BillingDetails\Delete.cshtml" />
+    <Content Include="Views\BillingDetails\Details.cshtml" />
+    <Content Include="Views\BillingDetails\Edit.cshtml" />
+    <Content Include="Views\BillingDetails\Index.cshtml" />
     <Content Include="Views\Currency\Create.cshtml" />
     <Content Include="Views\Currency\Delete.cshtml" />
     <Content Include="Views\Currency\Details.cshtml" />

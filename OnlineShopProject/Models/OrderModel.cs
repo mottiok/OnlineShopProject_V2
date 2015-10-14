@@ -12,5 +12,6 @@ namespace OnlineShopProject.Models
         public ApplicationUser ApplicationUser { get; set; }
         public BillingDetailsModel BillingDetails { get; set; }
         public int BillingDetailsId { get; set; }
+        public DateTime CreatedAt { get; set; }
     }
 }

@@ -37,8 +37,9 @@
                             <ul class="nav navbar-nav">
                                 @if (Request.IsAuthenticated)
                                 {
-                                    <li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a></li>
-                                    <li><a href="@Url.Action("Index", "Carts")"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+                                    <li><a href="@Url.Action("Index", "Orders")"><i class="fa fa-book"></i> Orders History</a></li>
+                                    <li><a href="@Url.Action("Create", "Orders")"><i class="fa fa-crosshairs"></i> Checkout</a></li>
+                                    <li><a href="@Url.Action("Index", "Carts")"><i class="fa fa-shopping-cart"></i> Shopping Cart</a></li>
                                 }
                                 @Html.Partial("_LoginPartial")
                             </ul>

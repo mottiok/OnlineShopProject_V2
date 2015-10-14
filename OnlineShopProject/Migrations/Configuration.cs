@@ -16,27 +16,34 @@ namespace OnlineShopProject.Migrations
 
         protected override void Seed(OnlineShopProject.Models.ApplicationDbContext context)
         {
+            context.CountryModels.AddOrUpdate(new CountryModel() { Country = "Israel" },
+                new CountryModel() { Country = "Spain" },
+                new CountryModel() { Country = "Canada" },
+                new CountryModel() { Country = "Brazil" },
+                new CountryModel() { Country = "Egypt" },
+                new CountryModel() { Country = "Japan" });
             #region Currency
 
             CurrencyModel currency1 = new CurrencyModel { Sign = "$" };
             CurrencyModel currency2 = new CurrencyModel { Sign = "¤" };
             CurrencyModel currency3 = new CurrencyModel { Sign = "€" };
 
-            context.CurrencyModels.AddOrUpdate(currency1, currency2, currency3); 
+            context.CurrencyModels.AddOrUpdate(currency1, currency2, currency3);
 
             #endregion
 
             #region Genres
+            System.Diagnostics.Debugger.Launch();
 
             GenreModel genre = new GenreModel { Name = "Pop" };
-            context.GenreModels.AddOrUpdate(genre); 
+            context.GenreModels.AddOrUpdate(genre);
 
             #endregion
 
             #region Artists
 
             ArtistModel artist = new ArtistModel { Name = "Maroon 5" };
-            context.ArtistModels.AddOrUpdate(artist); 
+            context.ArtistModels.AddOrUpdate(artist);
 
             #endregion
 

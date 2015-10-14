@@ -28,7 +28,16 @@ namespace OnlineShopProject.Controllers
 
             if (!((cartItemModel.Quantity + changeVector) < 0))
             {
-                cartItemModel.Quantity = cartItemModel.Quantity + changeVector;
+                int newQuantity = cartItemModel.Quantity + changeVector;
+                if (newQuantity <= 0)
+                {
+                    db.CartItemModels.Remove(cartItemModel);
+                }
+                else
+                {
+                    cartItemModel.Quantity = cartItemModel.Quantity + changeVector;
+                }
+
                 db.SaveChanges();
             }
 
@@ -37,11 +46,18 @@ namespace OnlineShopProject.Controllers
 
         public ActionResult UpdateQuantityValue(int cartItemId, int newQuantity)
         {
-            CartItemModel cartItemModel = db.CartItemModels.Find(cartItemId);
-            cartItemModel.Quantity = newQuantity;
-            db.SaveChanges();
+            if (newQuantity > 0)
+            {
+                CartItemModel cartItemModel = db.CartItemModels.Find(cartItemId);
+                cartItemModel.Quantity = newQuantity;
+                db.SaveChanges();
 
-            return new HttpStatusCodeResult(HttpStatusCode.OK);
+                return new HttpStatusCodeResult(HttpStatusCode.OK);
+            }
+            else
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
         }
 
         // GET: Carts/Details/5

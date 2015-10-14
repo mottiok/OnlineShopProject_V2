@@ -2207,7 +2207,6 @@ h2.title {
 
 #cart_items .cart_info {
   border: 1px solid #E6E4DF;
-  margin-bottom: 50px
 }
 
 
@@ -2542,14 +2541,14 @@ h2.title {
 
 .form-two, .form-one {
   float: left;
-  width: 47%
 }
 
 
 .shopper-info > form > input, 
 .form-two > form > select, 
 .form-two > form > input, 
-.form-one > form > input {
+.form-one > input,
+.form-one > select {
   background:#F0F0E9;
   border: 0 none;
   margin-bottom:10px;

@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using OnlineShopProject.Models;
+using Microsoft.AspNet.Identity;
 
 namespace OnlineShopProject.Controllers
 {
@@ -17,7 +18,16 @@ namespace OnlineShopProject.Controllers
         // GET: Orders
         public ActionResult Index()
         {
-            var orderModels = db.OrderModels.Include(o => o.BillingDetails);
+            string userId = User.Identity.GetUserId();
+
+            var orderModels = db.OrderModels.Include(x => x.ApplicationUser).
+                Where(x => x.ApplicationUser.Id == userId).
+                OrderByDescending(x => x.CreatedAt).
+                Include(o => o.BillingDetails).
+                Include(x => x.OrderItems.
+                    Select(a => a.Album).
+                    Select(z => z.Artist));
+
             return View(orderModels.ToList());
         }
 
@@ -39,8 +49,19 @@ namespace OnlineShopProject.Controllers
         // GET: Orders/Create
         public ActionResult Create()
         {
-            ViewBag.BillingDetailsId = new SelectList(db.BillingDetailsModels, "Id", "FirstName");
-            return View();
+            if (Request.IsAuthenticated)
+            {
+                ApplicationUser currentUser = db.Users.Find(User.Identity.GetUserId());
+                CartModel cartModel = db.CartModels.Where(x => x.Id == currentUser.CartModelId).Include(x => x.CartItems.Select(a => a.Album).Select(z => z.Artist)).SingleOrDefault();
+
+                ViewBag.CartModel = cartModel;
+                ViewBag.CountryId = new SelectList(db.CountryModels, "Id", "Country");
+                ViewBag.BillingDetailsId = new SelectList(db.BillingDetailsModels, "Id", "FirstName"); // TODO: REMOVE UNUSED STUFF LIKE THIS
+
+                return View();
+            }
+
+            return RedirectToAction("Index", "Albums");
         }
 
         // POST: Orders/Create
@@ -48,17 +69,50 @@ namespace OnlineShopProject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,BillingDetailsId")] OrderModel orderModel)
+        public ActionResult Create(string FirstName, string LastName, string Address, string ZipCode, int CountryId, string Phone, string CreditCardNumber, int ExpirationMonth, int ExpirationYear, int CVV2, int CartModelId)
         {
-            if (ModelState.IsValid)
+            BillingDetailsModel billingDetailsModel = new BillingDetailsModel()
             {
-                db.OrderModels.Add(orderModel);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                FirstName = FirstName,
+                LastName = LastName,
+                Address = Address,
+                ZipCode = ZipCode,
+                CountryId = CountryId,
+                Phone = Phone,
+                CreditCardNumber = CreditCardNumber,
+                ExpirationMonth = ExpirationMonth,
+                ExpirationYear = ExpirationYear,
+                CVV2 = CVV2
+            };
+
+            db.BillingDetailsModels.Add(billingDetailsModel);
+
+            ApplicationUser currentUser = db.Users.Find(User.Identity.GetUserId());
+
+            OrderModel orderModel = new OrderModel()
+            {
+                BillingDetailsId = billingDetailsModel.Id,
+                ApplicationUser = currentUser,
+                CreatedAt = DateTime.Now
+            };
+
+            db.OrderModels.Add(orderModel);
+
+            CartModel cartModel = db.CartModels.Where(x => x.Id == CartModelId).Include(x => x.CartItems.Select(a => a.Album)).SingleOrDefault();
+
+            foreach (CartItemModel item in cartModel.CartItems)
+            {
+                db.OrderItemModels.Add(new OrderItemModel()
+                {
+                    AlbumId = item.AlbumId,
+                    OrderModelId = orderModel.Id,
+                    Price = item.Album.Price,
+                    Quantity = item.Quantity
+                });
             }
 
-            ViewBag.BillingDetailsId = new SelectList(db.BillingDetailsModels, "Id", "FirstName", orderModel.BillingDetailsId);
-            return View(orderModel);
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
 
         // GET: Orders/Edit/5

@@ -6,8 +6,9 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using OnlineShopProject.Models;
 
-namespace OnlineShopProject.Models
+namespace OnlineShopProject.Controllers
 {
     public class BillingDetailsController : Controller
     {
@@ -47,7 +48,7 @@ namespace OnlineShopProject.Models
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,FirstName,LastName,Address,ZipCode,CountryId,Phone")] BillingDetailsModel billingDetailsModel)
+        public ActionResult Create([Bind(Include = "Id,FirstName,LastName,Address,ZipCode,CountryId,Phone,CreditCardNumber,ExpirationMonth,ExpirationYear,CVV2")] BillingDetailsModel billingDetailsModel)
         {
             if (ModelState.IsValid)
             {
@@ -81,7 +82,7 @@ namespace OnlineShopProject.Models
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,FirstName,LastName,Address,ZipCode,CountryId,Phone")] BillingDetailsModel billingDetailsModel)
+        public ActionResult Edit([Bind(Include = "Id,FirstName,LastName,Address,ZipCode,CountryId,Phone,CreditCardNumber,ExpirationMonth,ExpirationYear,CVV2")] BillingDetailsModel billingDetailsModel)
         {
             if (ModelState.IsValid)
             {

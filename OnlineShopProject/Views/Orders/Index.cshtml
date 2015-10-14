@@ -1,33 +1,86 @@
 ﻿@model IEnumerable<OnlineShopProject.Models.OrderModel>
+<!-- TODO: CHECK IN ALL LIKE THIS THAT THIS ARRAY IS ONLY FOR THE CURRENT USER -->
 
 @{
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.BillingDetails.FirstName)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.BillingDetails.FirstName)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
-
-</table>
+<section id="cart_items">
+    <div class="container">
+        <div class="breadcrumbs">
+            <ol class="breadcrumb">
+                <li><a href="#">Home</a></li>
+                <li class="active">Orders History</li>
+            </ol>
+        </div><!--/breadcrums-->
+        @{ int orderIndex = Model.Count(); }
+        @foreach (var orderModel in Model)
+        {
+            <div class="review-payment">
+                <h2>Order #@orderIndex - @orderModel.CreatedAt.ToShortDateString() @orderModel.CreatedAt.ToShortTimeString()</h2>
+                @{ orderIndex--; }
+            </div>
+            <div class="table-responsive cart_info history-cart">
+                    <table class="table table-condensed orders-cart-summary">
+                        <thead>
+                            <tr class="cart_menu">
+                                <td class="image">Item</td>
+                                <td class="description"></td>
+                                <td class="price">Price</td>
+                                <td class="quantity">Quantity</td>
+                                <td class="total">Total</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{ double totalPrice = 0; }
+                            @foreach (var item in orderModel.OrderItems)
+                            {
+                                <tr>
+                                    <td class="cart_product">
+                                        <a href=""><img src="@item.Album.ImagePath" alt="" class="cart-product-image"></a>
+                                    </td>
+                                    <td class="cart_description">
+                                        <h4><a href="">@item.Album.Name</a></h4>
+                                        <p>By @item.Album.Artist.Name</p>
+                                    </td>
+                                    <td class="cart_price">
+                                        <p>$@item.Album.Price</p>
+                                    </td>
+                                    <td class="cart_quantity" data-cart-item-id="@item.Id">
+                                        <label class="quantity-label">@item.Quantity</label>
+                                    </td>
+                                    <td class="cart_total">
+                                        <p class="cart_total_price">$ @(item.Album.Price * item.Quantity)</p>
+                                        @{
+                                totalPrice += item.Album.Price * item.Quantity;
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                            <tr>
+                                <td colspan="4">&nbsp;</td>
+                                <td colspan="2">
+                                    <table class="table table-condensed total-result">
+                                        <tbody>
+                                            <tr>
+                                                <td>Cart Sub Total</td>
+                                                <td>$@totalPrice</td>
+                                            </tr>
+                                            <tr class="shipping-cost">
+                                                <td>Shipping Cost</td>
+                                                <td>Free</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Total</td>
+                                                <td><span>$@totalPrice</span></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>   
+            </div>
+        }
+    </div>
+</section>

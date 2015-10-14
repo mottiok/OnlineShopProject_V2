@@ -11,7 +11,7 @@ namespace OnlineShopProject.Models
         public AlbumModel Album { get; set; }
         public int AlbumId { get; set; }
         public int Quantity { get; set; }
-        public float Price { get; set; }
+        public double Price { get; set; }
         public OrderModel OrderModel { get; set; }
         public int OrderModelId { get; set; }
     }

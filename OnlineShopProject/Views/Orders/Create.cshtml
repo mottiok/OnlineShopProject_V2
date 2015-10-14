@@ -4,37 +4,114 @@
     ViewBag.Title = "Create";
 }
 
-<h2>Create</h2>
-
-
-@using (Html.BeginForm()) 
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>OrderModel</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.BillingDetailsId, "BillingDetailsId", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("BillingDetailsId", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.BillingDetailsId, "", new { @class = "text-danger" })
+<section id="cart_items">
+    <div class="container">
+        <div class="breadcrumbs">
+            <ol class="breadcrumb">
+                <li><a href="#">Home</a></li>
+                <li class="active">Checkout</li>
+            </ol>
+        </div><!--/breadcrums-->
+        <form action="@Url.Action("Create", "Orders")" method="post">
+            @Html.AntiForgeryToken()
+            @Html.Hidden("CartModelId", (int)ViewBag.CartModel.Id)
+            <div class="shopper-informations">
+                <div class="row">
+                    <div class="col-sm-5 clearfix">
+                        <div class="bill-to">
+                            <p>Billing Details</p>
+                            <div class="form-one">
+                                <input type="text" placeholder="First Name" name="FirstName">
+                                <input type="text" placeholder="Last Name" name="LastName">
+                                <input type="text" placeholder="Address" name="Address">
+                                <input type="text" placeholder="Zip Code" name="ZipCode">
+                                @Html.DropDownList("CountryId")
+                                <input type="text" placeholder="Phone" name="Phone">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-5 clearfix">
+                        <div class="bill-to">
+                            <p>Payment Details</p>
+                            <div class="form-one">
+                                <input type="text" placeholder="Credit Card Number" name="CreditCardNumber">
+                                <input type="number" min="1" max="12" placeholder="Expiration Month" name="ExpirationMonth">
+                                <input type="number" min="2015" max="2030" placeholder="Expiration Year" name="ExpirationYear">
+                                <input type="text" placeholder="CVV2" name="CVV2">
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+            <div class="review-payment">
+                <h2>Review &amp; Payment</h2>
             </div>
-        </div>
+
+            <div class="table-responsive cart_info">
+                <table class="table table-condensed orders-cart-summary">
+                    <thead>
+                        <tr class="cart_menu">
+                            <td class="image">Item</td>
+                            <td class="description"></td>
+                            <td class="price">Price</td>
+                            <td class="quantity">Quantity</td>
+                            <td class="total">Total</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            double totalPrice = 0;
+                        }
+                        @foreach (var item in ViewBag.CartModel.CartItems)
+                        {
+                            <tr>
+                                <td class="cart_product">
+                                    <a href=""><img src="@item.Album.ImagePath" alt="" class="cart-product-image"></a>
+                                </td>
+                                <td class="cart_description">
+                                    <h4><a href="">@item.Album.Name</a></h4>
+                                    <p>By @item.Album.Artist.Name</p>
+                                </td>
+                                <td class="cart_price">
+                                    <p>$@item.Album.Price</p>
+                                </td>
+                                <td class="cart_quantity" data-cart-item-id="@item.Id">
+                                    <label class="quantity-label">@item.Quantity</label>
+                                </td>
+                                <td class="cart_total">
+                                    <p class="cart_total_price">$ @(item.Album.Price * item.Quantity)</p>
+                                    @{
+                            totalPrice += item.Album.Price * item.Quantity;
+                                    }
+                                </td>
+                            </tr>
+                        }
+                        <tr>
+                            <td colspan="4">&nbsp;</td>
+                            <td colspan="2">
+                                <table class="table table-condensed total-result">
+                                    <tbody>
+                                        <tr>
+                                            <td>Cart Sub Total</td>
+                                            <td>$@totalPrice</td>
+                                        </tr>
+                                        <tr class="shipping-cost">
+                                            <td>Shipping Cost</td>
+                                            <td>Free</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Total</td>
+                                            <td><span>$@totalPrice</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <a class="btn btn-default check_out return_to_cart" href="@Url.Action("Index", "Carts")">Edit Order</a>
+            <button type="submit" class="btn btn-default check_out place_order">Place Order</button>
+        </form>
     </div>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+</section>

@@ -15,7 +15,7 @@
         <div class="table-responsive cart_info">
             @if (Model.CartItems.Count == 0)
             {
-                <h2 class="text-center">No items in cart.</h2>   
+                <h2 class="text-center even-margin">No items in cart.</h2>   
             }
             else
             {
@@ -63,5 +63,6 @@
                 </table>
             }
         </div>
+        <a class="btn btn-default check_out" href="@Url.Action("Create", "Orders")">Check Out</a>
     </div>
 </section>
