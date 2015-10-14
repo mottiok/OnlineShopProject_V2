@@ -379,6 +379,7 @@
     <Content Include="Views\BillingDetails\Details.cshtml" />
     <Content Include="Views\BillingDetails\Edit.cshtml" />
     <Content Include="Views\BillingDetails\Index.cshtml" />
+    <Content Include="Views\Artists\AdminIndex.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

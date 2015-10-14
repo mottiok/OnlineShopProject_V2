@@ -20,6 +20,11 @@ namespace OnlineShopProject
             return PartialView(db.ArtistModels.ToList());
         }
 
+        public ActionResult AdminIndex()
+        {
+            return View(db.ArtistModels.ToList());
+        }
+
         // GET: Artists/Details/5
         public ActionResult Details(int? id)
         {

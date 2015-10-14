@@ -1,29 +1,50 @@
-﻿@using OnlineShopProject.Models;
-@using Microsoft.AspNet.Identity;
-@{
+﻿@{
     ViewBag.Title = "Manage Account";
 }
 
-<h2>@ViewBag.Title.</h2>
-
-<p class="text-success">@ViewBag.StatusMessage</p>
-<div class="row">
-    <div class="col-md-12">
-        @if (ViewBag.HasLocalPassword)
-        {
-            @Html.Partial("_ChangePasswordPartial")
-        }
-        else
-        {
-            @Html.Partial("_SetPasswordPartial")
-        }
-
-        <section id="externalLogins">
-            @Html.Action("RemoveAccountList")
-            @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { Action = "LinkLogin", ReturnUrl = ViewBag.ReturnUrl })
-        </section>
+<section>
+    <div class="container">
+        <div class="row">
+            <h2 class="title text-center">Admin Panel</h2>
+            <h2 class="title text-center">Artists</h2>
+            <div class="row">
+                <div class="col-sm-4"></div>
+                <div class="col-sm-2">
+                    <a class="btn btn-default cart new-item-admin" href="@Url.Action("Create", "Artists")">Create New</a>
+                </div>
+                <div class="col-sm-1">
+                    <h2 class="or or-admin">OR</h2>
+                </div>
+                <div class="col-sm-2">
+                    <a class="btn btn-default cart edit-item-admin" href="@Url.Action("AdminIndex", "Artists")">Edit Items</a>
+                </div>
+            </div>
+            <h2 class="title text-center">Albums</h2>
+            <div class="row">
+                <div class="col-sm-4"></div>
+                <div class="col-sm-2">
+                    <a class="btn btn-default cart new-item-admin" href="@Url.Action("Create", "Albums")">Create New</a>
+                </div>
+                <div class="col-sm-1">
+                    <h2 class="or or-admin">OR</h2>
+                </div>
+                <div class="col-sm-2">
+                    <a class="btn btn-default cart edit-item-admin" href="@Url.Action("Details", "Albums")">Edit Items</a>
+                </div>
+            </div>
+            <h2 class="title text-center">Countries</h2>
+            <div class="row">
+                <div class="col-sm-4"></div>
+                <div class="col-sm-2">
+                    <a class="btn btn-default cart new-item-admin" href="@Url.Action("Create", "Countries")">Create New</a>
+                </div>
+                <div class="col-sm-1">
+                    <h2 class="or or-admin">OR</h2>
+                </div>
+                <div class="col-sm-2">
+                    <a class="btn btn-default cart edit-item-admin" href="@Url.Action("Details", "Countries")">Edit Items</a>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+</section>
