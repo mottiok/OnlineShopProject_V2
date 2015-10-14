@@ -6,7 +6,7 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#accordian" href="#genre">
+                    <a data-toggle="collapse" href="#genre">
                         <span class="badge pull-right"><i class="fa fa-plus"></i></span>
                         Genre
                     </a>
@@ -23,7 +23,7 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#accordian" href="#artist">
+                    <a data-toggle="collapse" href="#artist">
                         <span class="badge pull-right"><i class="fa fa-plus"></i></span>
                         Artist
                     </a>
@@ -41,7 +41,7 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#accordian" href="#decades">
+                    <a data-toggle="collapse" href="#decades">
                         <span class="badge pull-right"><i class="fa fa-plus"></i></span>
                         Decades 
                     </a>
@@ -54,7 +54,6 @@
                         {
                             @*<li><a href="@Url.Action("Filter", "Albums", new {decate = i})">@i</a></li>*@
                             @Helpers.AddParamToUrl("decade", @i.ToString(), @i.ToString(), new UrlHelper(Request.RequestContext))
-                            ;
                         }
                     </ul>
                 </div>
@@ -63,7 +62,7 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#accordian" href="#price">
+                    <a data-toggle="collapse" href="#price">
                         <span class="badge pull-right"><i class="fa fa-plus"></i></span>
                         Price
                     </a>

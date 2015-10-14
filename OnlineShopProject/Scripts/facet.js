@@ -1,15 +1,15 @@
 ﻿
 var signChange = function() {
-    var accordianItem = $("#accordian .panel .panel-heading .panel-title");
-    
-    accordianItem.click(function () {
-        var minusPlus = $(this).find("i");
-        if (minusPlus.attr('class').indexOf("minus") > 0) {
+    var accordianItem = $("#accordian .panel .panel-collapse");
 
-            minusPlus.attr('class', "fa fa-plus");
-        } else {
-            minusPlus.attr('class', "fa fa-minus");
-        }
+    accordianItem.on("shown.bs.collapse", function() {
+        var minusPlus = $(this).parent().find(".panel-heading .panel-title i");
+        minusPlus.attr('class', "fa fa-minus");
+    });
+
+    accordianItem.on("hidden.bs.collapse", function () {
+        var minusPlus = $(this).parent().find(".panel-heading .panel-title i");
+        minusPlus.attr('class', "fa fa-plus");
     });
 };
 

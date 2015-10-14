@@ -16,8 +16,6 @@ namespace OnlineShopProject.Migrations
 
         protected override void Seed(OnlineShopProject.Models.ApplicationDbContext context)
         {
-            System.Diagnostics.Debugger.Launch();
-
             GenreModel genre = new GenreModel { Name = "Pop" };
             context.GenreModels.AddOrUpdate(genre);
 
