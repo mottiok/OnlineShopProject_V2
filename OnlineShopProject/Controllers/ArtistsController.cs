@@ -17,7 +17,7 @@ namespace OnlineShopProject
         // GET: Artists
         public ActionResult Index()
         {
-            return View(db.ArtistModels.ToList());
+            return PartialView(db.ArtistModels.ToList());
         }
 
         // GET: Artists/Details/5

@@ -24,15 +24,24 @@ namespace OnlineShopProject.Migrations
             ArtistModel artist = new ArtistModel { Name = "Maroon 5" };
             context.ArtistModels.AddOrUpdate(artist);
 
+            CartModel cart1 = new CartModel();
+            CartModel cart2 = new CartModel();
+            CartModel cart3 = new CartModel();
+            CartModel cart4 = new CartModel();
+
+            #region Maroon 5
+
+            #region V
+
             AlbumModel vDelux = new AlbumModel
-            { 
-                Genre = genre, 
-                ReleaseDate = DateTime.Now, 
-                Artist = artist, 
-                Name = "V (Delux)", 
-                Price = 12.99, 
-                ImagePath = "/Uploads/Albums/CD_Covers/V.jpg"
-            };
+                {
+                    Genre = genre,
+                    ReleaseDate = DateTime.Now,
+                    Artist = artist,
+                    Name = "V (Delux)",
+                    Price = 12.99,
+                    ImagePath = "/Uploads/Albums/CD_Covers/V.jpg"
+                };
 
             vDelux.Songs = new System.Collections.Generic.List<SongModel>();
 
@@ -50,18 +59,12 @@ namespace OnlineShopProject.Migrations
 
             vDelux.Reviews = new System.Collections.Generic.List<ReviewModel>();
 
-            CartModel cart1 = new CartModel();
-            CartModel cart2 = new CartModel();
-            CartModel cart3 = new CartModel();
-
-            context.CartModels.AddOrUpdate(cart1, cart2, cart3);
-
             vDelux.Reviews.Add(new ReviewModel
             {
                 AlbumModel = vDelux,
-                Content = "LOVE it! I listen to Maroon 5 when I go out walking/running ... their music energizes/motivates me and makes the time fly by. There isn't a song on here I don't like which rarely happens....usually have to skip through some. I especially like \"Maps\" but \"It Was Always You\" has to be my favorite!", 
-                CreatedAt = DateTime.Now, 
-                Rating = 5, 
+                Content = "LOVE it! I listen to Maroon 5 when I go out walking/running ... their music energizes/motivates me and makes the time fly by. There isn't a song on here I don't like which rarely happens....usually have to skip through some. I especially like \"Maps\" but \"It Was Always You\" has to be my favorite!",
+                CreatedAt = DateTime.Now,
+                Rating = 5,
                 ApplicationUser = new ApplicationUser { UserName = "Paula", PasswordHash = new PasswordHasher().HashPassword("Password1"), Email = "paula@gmail.com", CartModel = cart1 }
             });
 
@@ -76,15 +79,19 @@ namespace OnlineShopProject.Migrations
 
             context.AlbumModels.AddOrUpdate(vDelux);
 
+            #endregion
+
+            #region Over Exposed
+
             AlbumModel overExposed = new AlbumModel
-            {
-                Genre = genre,
-                ReleaseDate = DateTime.Now,
-                Artist = artist,
-                Name = "Overexposed",
-                Price = 9.49,
-                ImagePath = "/Uploads/Albums/CD_Covers/Overexposed.jpg"
-            };
+                {
+                    Genre = genre,
+                    ReleaseDate = DateTime.Now,
+                    Artist = artist,
+                    Name = "Overexposed",
+                    Price = 9.49,
+                    ImagePath = "/Uploads/Albums/CD_Covers/Overexposed.jpg"
+                };
 
             overExposed.Songs = new System.Collections.Generic.List<SongModel>();
 
@@ -110,6 +117,55 @@ namespace OnlineShopProject.Migrations
             });
 
             context.AlbumModels.AddOrUpdate(overExposed);
+
+            #endregion
+
+            #region Songs About Jane
+
+            AlbumModel songsAboutJane = new AlbumModel
+                {
+                    Genre = genre,
+                    ReleaseDate = new DateTime(2002, 6, 25),
+                    Artist = artist,
+                    Name = "Songs About Jane",
+                    Price = 5.0,
+                    ImagePath = "/Uploads/Albums/CD_Covers/songsaboutjane.jpg"
+                };
+
+            songsAboutJane.Songs = new System.Collections.Generic.List<SongModel>();
+
+            songsAboutJane.Songs.Add(new SongModel { Album = songsAboutJane, Duration = 120 + 55, Name = "Harder to Breathe" });
+            songsAboutJane.Songs.Add(new SongModel { Album = songsAboutJane, Duration = 240 + 26, Name = "This Love" });
+            songsAboutJane.Songs.Add(new SongModel { Album = songsAboutJane, Duration = 180, Name = "Shiver" });
+            songsAboutJane.Songs.Add(new SongModel { Album = songsAboutJane, Duration = 240 + 17, Name = "She Will Be Loved" });
+            songsAboutJane.Songs.Add(new SongModel { Album = songsAboutJane, Duration = 180 + 19, Name = "Tangled" });
+            songsAboutJane.Songs.Add(new SongModel { Album = songsAboutJane, Duration = 240 + 11, Name = "The Sun" });
+            songsAboutJane.Songs.Add(new SongModel { Album = songsAboutJane, Duration = 240 + 36, Name = "Must Get Out" });
+            songsAboutJane.Songs.Add(new SongModel { Album = songsAboutJane, Duration = 240 + 6, Name = "Sunday Morning" });
+            songsAboutJane.Songs.Add(new SongModel { Album = songsAboutJane, Duration = 240 + 55, Name = "Secret" });
+            songsAboutJane.Songs.Add(new SongModel { Album = songsAboutJane, Duration = 180 + 1, Name = "Through with You" });
+            songsAboutJane.Songs.Add(new SongModel { Album = songsAboutJane, Duration = 240 + 24, Name = "Not Coming Home" });
+            songsAboutJane.Songs.Add(new SongModel { Album = songsAboutJane, Duration = 240 + 31, Name = "Sweetest Goodbye" });
+
+            songsAboutJane.Reviews = new System.Collections.Generic.List<ReviewModel>();
+
+            songsAboutJane.Reviews.Add(new ReviewModel
+            {
+                AlbumModel = songsAboutJane,
+                Content = "Okay, not everyone will agree with me when I call this 'pop', but personally I think Maroon 5 is just about the best pop music around at the moment.",
+                CreatedAt = new DateTime(2005, 6, 5),
+                Rating = 3,
+                ApplicationUser = new ApplicationUser { UserName = "T.MOBS", PasswordHash = new PasswordHasher().HashPassword("Password1"), Email = "tmobs@gmail.com", CartModel = cart4 }
+            });
+
+            context.AlbumModels.AddOrUpdate(songsAboutJane);
+
+            #endregion 
+
+            #endregion
+
+            context.CartModels.AddOrUpdate(cart1, cart2, cart3);
         }
+
     }
 }

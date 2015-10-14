@@ -24,6 +24,43 @@ namespace OnlineShopProject.Models
             return View(albumModels.ToList());
         }
 
+
+        public ActionResult Filter(int? genreId, int? artistId, int? decate, double? price)
+        {
+            IQueryable<AlbumModel> partialView = db.AlbumModels;
+
+            if (decate != null)
+            {
+                int intDecate = (int)decate;
+                DateTime bottomDateTime = new DateTime(intDecate, 1, 1);
+                DateTime higherDateTime = new DateTime(intDecate + 10, 1, 1);
+
+                partialView = partialView.Where(a => a.ReleaseDate >= bottomDateTime &&
+                                                        a.ReleaseDate < higherDateTime);
+            }
+
+            if (genreId != null)
+            {
+                int inGenreId = (int)genreId;
+                partialView = partialView.Where(g => g.GenreId == inGenreId);
+            }
+
+            if (artistId != null)
+            {
+                int intArtistId = (int)artistId;
+                partialView = partialView.Where(a => a.ArtistId == intArtistId);
+            }
+
+            if (price != null)
+            {
+                double doublePrice = (double)price;
+                partialView = partialView.Where(p => p.Price >= doublePrice && p.Price <= doublePrice + 5);
+            }
+
+            return View(partialView);
+        }
+
+
         // GET: Albums/Details/5
         public ActionResult Details(int? id)
         {

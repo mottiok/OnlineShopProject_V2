@@ -23,6 +23,10 @@ namespace OnlineShopProject
                         "~/Scripts/main.js",
                         "~/Scripts/albums.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/main").Include(
+                        "~/Scripts/main.js",
+                        "~/Scripts/facet.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/iesupport").Include(
                         "~/Scripts/html5shiv.js",
                         "~/Scripts/respond.min.js"));
