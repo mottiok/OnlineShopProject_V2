@@ -43,7 +43,7 @@
                 <h4 class="panel-title">
                     <a data-toggle="collapse" data-parent="#accordian" href="#decades">
                         <span class="badge pull-right"><i class="fa fa-plus"></i></span>
-                        Decades
+                        Decades 
                     </a>
                 </h4>
             </div>
@@ -53,7 +53,7 @@
                         @for (int i = 2010; i > 1960; i -= 10)
                         {
                             @*<li><a href="@Url.Action("Filter", "Albums", new {decate = i})">@i</a></li>*@
-                            @Helpers.AddParamToUrl("decate", @i.ToString(), @i.ToString(), new UrlHelper(Request.RequestContext))
+                            @Helpers.AddParamToUrl("decade", @i.ToString(), @i.ToString(), new UrlHelper(Request.RequestContext))
                             ;
                         }
                     </ul>

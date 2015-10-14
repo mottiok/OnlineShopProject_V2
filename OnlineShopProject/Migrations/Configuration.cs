@@ -164,7 +164,7 @@ namespace OnlineShopProject.Migrations
 
             #endregion
 
-            context.CartModels.AddOrUpdate(cart1, cart2, cart3);
+            context.CartModels.AddOrUpdate(cart1, cart2, cart3, cart4);
         }
 
     }

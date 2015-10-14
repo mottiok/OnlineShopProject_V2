@@ -25,13 +25,13 @@ namespace OnlineShopProject.Models
         }
 
 
-        public ActionResult Filter(int? genreId, int? artistId, int? decate, double? price)
+        public ActionResult Filter(int? genreId, int? artistId, int? decade, double? price)
         {
             IQueryable<AlbumModel> partialView = db.AlbumModels;
 
-            if (decate != null)
+            if (decade != null)
             {
-                int intDecate = (int)decate;
+                int intDecate = (int)decade;
                 DateTime bottomDateTime = new DateTime(intDecate, 1, 1);
                 DateTime higherDateTime = new DateTime(intDecate + 10, 1, 1);
 
