@@ -24,6 +24,45 @@ namespace OnlineShopProject.Models
             return View(albumModels.ToList());
         }
 
+
+        public ActionResult Filter(int? genreId, int? artistId, int? decade, double? price)
+        {
+            IQueryable<AlbumModel> filterQuery = db.AlbumModels;
+
+            if (decade != null)
+            {
+                int intDecate = (int)decade;
+                DateTime bottomDateTime = new DateTime(intDecate, 1, 1);
+                DateTime higherDateTime = new DateTime(intDecate + 10, 1, 1);
+
+                filterQuery = filterQuery.Where(a => a.ReleaseDate >= bottomDateTime &&
+                                                        a.ReleaseDate < higherDateTime);
+            }
+
+            if (genreId != null)
+            {
+                int inGenreId = (int)genreId;
+                filterQuery = filterQuery.Where(g => g.GenreId == inGenreId);
+            }
+
+            if (artistId != null)
+            {
+                int intArtistId = (int)artistId;
+                filterQuery = filterQuery.Where(a => a.ArtistId == intArtistId);
+            }
+
+            if (price != null)
+            {
+                double doublePrice = (double)price;
+                filterQuery = filterQuery.Where(p => p.Price >= doublePrice && p.Price <= doublePrice + 5);
+            }
+
+            SetCarModelId();
+
+            return View(filterQuery);
+        }
+
+
         // GET: Albums/Details/5
         public ActionResult Details(int? id)
         {

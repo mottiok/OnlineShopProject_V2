@@ -17,7 +17,7 @@ namespace OnlineShopProject
         // GET: Genres
         public ActionResult Index()
         {
-            return View(db.GenreModels.ToList());
+            return PartialView(db.GenreModels.ToList());
         }
 
         // GET: Genres/Details/5

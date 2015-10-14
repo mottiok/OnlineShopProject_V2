@@ -1,0 +1,19 @@
+﻿@using System.Collections.Specialized
+@using System.Web.Mvc
+@using System.Web.Routing
+
+@helper AddParamToUrl(string name, string param, string text, UrlHelper urlHelper)
+{
+    NameValueCollection paramValues = HttpUtility.ParseQueryString(Request.Url.Query);
+
+    paramValues[name] = param;
+
+    RouteValueDictionary dic = new RouteValueDictionary();
+
+    for (int i = 0; i < paramValues.Count; i++)
+    {
+        dic[paramValues.GetKey(i)] = paramValues.Get(i);
+    }
+    
+    <li><a href="@urlHelper.Action("Filter", "Albums", dic)" class="not_selected">@text</a></li>
+}
