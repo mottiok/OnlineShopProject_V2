@@ -28,9 +28,12 @@
                         <div class="logo pull-left">
                             <a href="@Url.Action("Index", "Albums")"><img src="~/Content/images/home/logo.png" alt=""/></a>
                         </div>
-                        <div id="currency" class="btn-group pull-right">
-                            @{ Html.RenderAction("Index", "Currency");}
-                        </div>
+                        @if (Request.IsAuthenticated)
+                        {
+                            <div id="currency" class="btn-group pull-right">
+                                @{ Html.RenderAction("Index", "Currency"); }
+                            </div>
+                        }
                     </div>
                     <div class="col-sm-8">
                         <div class="shop-menu pull-right">

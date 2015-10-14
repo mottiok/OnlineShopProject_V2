@@ -1,3 +1,5 @@
+using OnlineShopProject.CurrencyReference;
+
 namespace OnlineShopProject.Migrations
 {
     using Microsoft.AspNet.Identity;
@@ -29,9 +31,9 @@ namespace OnlineShopProject.Migrations
 
             #region Currency
 
-            CurrencyModel currency1 = new CurrencyModel { Sign = "$" };
-            CurrencyModel currency2 = new CurrencyModel { Sign = "¤" };
-            CurrencyModel currency3 = new CurrencyModel { Sign = "€" };
+            CurrencyModel currency1 = new CurrencyModel { Sign = "$", Currency = Currency.USD};
+            CurrencyModel currency2 = new CurrencyModel { Sign = "¤", Currency = Currency.ILS};
+            CurrencyModel currency3 = new CurrencyModel { Sign = "€", Currency = Currency.EUR};
 
             context.CurrencyModels.AddOrUpdate(currency1, currency2, currency3);
 

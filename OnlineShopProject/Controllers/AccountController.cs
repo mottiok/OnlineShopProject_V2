@@ -98,7 +98,7 @@ namespace OnlineShopProject.Controllers
                 db.SaveChanges();
                 user.CartModel = cart;
 
-                user.CurrenyModelId = db.CurrencyModels.First().Id;
+                user.CurrencyModelId = db.CurrencyModels.First().Id;
 
                 IdentityResult result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)

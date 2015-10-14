@@ -21,9 +21,23 @@ namespace OnlineShopProject.Models
 
             SetCarModelId();
 
+            ViewBag.user = GetCurrentUser();
+
             return View(albumModels.ToList());
         }
 
+        private ApplicationUser GetCurrentUser()
+        {
+            if (Request.IsAuthenticated)
+            {
+                string currentUserId = User.Identity.GetUserId();
+                ApplicationUser currentUser =
+                    db.Users.Where(x => x.Id == currentUserId).Include(x => x.CurrencyModel).SingleOrDefault();
+                return currentUser;
+            }
+
+            return null;
+        }
 
         public ActionResult Filter(int? genreId, int? artistId, int? decade, double? price)
         {
@@ -58,6 +72,7 @@ namespace OnlineShopProject.Models
             }
 
             SetCarModelId();
+            ViewBag.user = GetCurrentUser();
 
             return View(filterQuery);
         }
@@ -78,6 +93,7 @@ namespace OnlineShopProject.Models
                 Include(x => x.Reviews.Select(u => u.ApplicationUser)).SingleOrDefault();
 
             SetCarModelId();
+            ViewBag.user = GetCurrentUser();
 
             if (albumModel == null)
             {

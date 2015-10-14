@@ -18,7 +18,7 @@ namespace OnlineShopProject.Models
 
         public CurrencyModel CurrencyModel { get; set; }
 
-        public int CurrenyModelId { get; set; }
+        public int CurrencyModelId { get; set; }
         public CartModel CartModel { get; set; }
         public int CartModelId { get; set; }
     }

@@ -42,7 +42,7 @@
                                     <p>By @item.Album.Artist.Name</p>
                                 </td>
                                 <td class="cart_price">
-                                    <p>$@item.Album.Price</p>
+                                    <p>@Helpers.GetCurrencyAndPrice(ViewBag.user, item.Album.Price)</p>
                                 </td>
                                 <td class="cart_quantity" data-cart-item-id="@item.Id">
                                     <div class="cart_quantity_button">
@@ -52,7 +52,7 @@
                                     </div>
                                 </td>
                                 <td class="cart_total">
-                                    <p class="cart_total_price">$ @(item.Album.Price * item.Quantity)</p>
+                                    <p class="cart_total_price">@Helpers.GetCurrencyAndPrice(ViewBag.user, item.Album.Price * item.Quantity)</p>
                                 </td>
                                 <td class="cart_delete">
                                     <a class="cart_quantity_delete" href="@Url.Action("Delete", "CartItems", new { id = item.Id })"><i class="fa fa-times"></i></a>

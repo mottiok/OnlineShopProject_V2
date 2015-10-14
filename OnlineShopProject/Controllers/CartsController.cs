@@ -19,7 +19,21 @@ namespace OnlineShopProject.Controllers
         public ActionResult Index()
         {
             ApplicationUser currentUser = db.Users.Find(User.Identity.GetUserId());
+            ViewBag.user = GetCurrentUser();
             return View(db.CartModels.Where(x => x.Id == currentUser.CartModelId).Include(x => x.CartItems.Select(a => a.Album).Select(z => z.Artist)).SingleOrDefault());
+        }
+
+        private ApplicationUser GetCurrentUser()
+        {
+            if (Request.IsAuthenticated)
+            {
+                string currentUserId = User.Identity.GetUserId();
+                ApplicationUser currentUser =
+                    db.Users.Where(x => x.Id == currentUserId).Include(x => x.CurrencyModel).SingleOrDefault();
+                return currentUser;
+            }
+
+            return null;
         }
 
         public ActionResult UpdateQuantity(int cartItemId, int changeVector)

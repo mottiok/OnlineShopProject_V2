@@ -12,7 +12,7 @@
     <ul class="dropdown-menu">
         @foreach (var item in Model)
         {
-            <li><a href="">@item.Sign</a></li>
+            <li><a href="@Url.Action("Update", "Currency", new { id = item.Id })">@item.Sign</a></li>
         }
     </ul>
 </div>
