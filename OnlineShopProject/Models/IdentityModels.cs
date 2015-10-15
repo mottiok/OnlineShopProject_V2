@@ -49,8 +49,6 @@ namespace OnlineShopProject.Models
 
         public System.Data.Entity.DbSet<OnlineShopProject.Models.CartModel> CartModels { get; set; }
 
-        public System.Data.Entity.DbSet<OnlineShopProject.Models.ImageModel> ImageModels { get; set; }
-
         public System.Data.Entity.DbSet<OnlineShopProject.Models.OrderModel> OrderModels { get; set; }
 
         public System.Data.Entity.DbSet<OnlineShopProject.Models.ReviewModel> ReviewModels { get; set; }

@@ -170,7 +170,6 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\CountriesController.cs" />
     <Compile Include="Controllers\GenresController.cs" />
-    <Compile Include="Controllers\ImagesController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\ReviewsController.cs" />
     <Compile Include="Controllers\SongsController.cs" />
@@ -189,7 +188,6 @@
     <Compile Include="Models\CurrencyModel.cs" />
     <Compile Include="Models\GenreModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\ImageModel.cs" />
     <Compile Include="Models\ItemModel.cs" />
     <Compile Include="Models\AlbumModel.cs" />
     <Compile Include="Models\OrderItemModel.cs" />
@@ -359,11 +357,6 @@
     <Content Include="Views\OrderItems\Details.cshtml" />
     <Content Include="Views\OrderItems\Edit.cshtml" />
     <Content Include="Views\OrderItems\Index.cshtml" />
-    <Content Include="Views\Images\Create.cshtml" />
-    <Content Include="Views\Images\Delete.cshtml" />
-    <Content Include="Views\Images\Details.cshtml" />
-    <Content Include="Views\Images\Edit.cshtml" />
-    <Content Include="Views\Images\Index.cshtml" />
     <Content Include="Views\Shared\_FacetsPartial.cshtml" />
     <Content Include="Views\Carts\Create.cshtml" />
     <Content Include="Views\Carts\Delete.cshtml" />

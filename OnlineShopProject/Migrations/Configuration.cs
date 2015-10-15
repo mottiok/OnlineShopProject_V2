@@ -71,7 +71,7 @@ namespace OnlineShopProject.Migrations
             #region Admin Role & Power User
 
             ApplicationUser admin = new ApplicationUser { UserName = "admin@gmail.com", Email = "admin@gmail.com", CartModel = new CartModel(), CurrencyModel = defaultCurrency };
-            userManager.Create(admin, "Admin1!");
+            userManager.Create(admin, "password");
             context.Roles.AddOrUpdate(x => x.Name, new IdentityRole { Name = "Admins" });
             context.SaveChanges();
 

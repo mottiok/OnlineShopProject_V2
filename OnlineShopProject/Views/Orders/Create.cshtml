@@ -21,12 +21,19 @@
                         <div class="bill-to">
                             <p>Billing Details</p>
                             <div class="form-one">
+                                @Html.ValidationMessage("FirstName", "", new { @class = "text-danger" })
                                 <input type="text" placeholder="First Name" name="FirstName">
+                                @Html.ValidationMessage("LastName", "", new { @class = "text-danger" })
                                 <input type="text" placeholder="Last Name" name="LastName">
+                                @Html.ValidationMessage("Address", "", new { @class = "text-danger" })
                                 <input type="text" placeholder="Address" name="Address">
+                                @Html.ValidationMessage("City", "", new { @class = "text-danger" })
                                 <input type="text" placeholder="City" name="City">
+                                @Html.ValidationMessage("ZipCode", "", new { @class = "text-danger" })
                                 <input type="text" placeholder="Zip Code" name="ZipCode">
+                                @Html.ValidationMessage("CountryId", "", new { @class = "text-danger" })
                                 @Html.DropDownList("CountryId")
+                                @Html.ValidationMessage("Phone", "", new { @class = "text-danger" })
                                 <input type="text" placeholder="Phone" name="Phone">
                             </div>
                         </div>
@@ -35,9 +42,13 @@
                         <div class="bill-to">
                             <p>Payment Details</p>
                             <div class="form-one">
+                                @Html.ValidationMessage("CreditCardNumber", "", new { @class = "text-danger" })
                                 <input type="text" placeholder="Credit Card Number" name="CreditCardNumber">
+                                @Html.ValidationMessage("ExpirationMonth", "", new { @class = "text-danger" })
                                 <input type="number" min="1" max="12" placeholder="Expiration Month" name="ExpirationMonth">
+                                @Html.ValidationMessage("ExpirationYear", "", new { @class = "text-danger" })
                                 <input type="number" min="2015" max="2030" placeholder="Expiration Year" name="ExpirationYear">
+                                @Html.ValidationMessage("CVV2", "", new { @class = "text-danger" })
                                 <input type="text" placeholder="CVV2" name="CVV2">
                             </div>
                         </div>
