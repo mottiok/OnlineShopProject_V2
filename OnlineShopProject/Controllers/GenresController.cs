@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using OnlineShopProject.Models;
+using OnlineShopProject.Filters;
 
 namespace OnlineShopProject
 {
@@ -20,6 +21,7 @@ namespace OnlineShopProject
             return PartialView(db.GenreModels.ToList());
         }
 
+        [RejectUnauthorizedUsers]
         public ActionResult AdminIndex()
         {
             return View(db.GenreModels.ToList());
@@ -41,6 +43,7 @@ namespace OnlineShopProject
         }
 
         // GET: Genres/Create
+        [RejectUnauthorizedUsers]
         public ActionResult Create()
         {
             return View();
@@ -51,6 +54,7 @@ namespace OnlineShopProject
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [RejectUnauthorizedUsers]
         public ActionResult Create([Bind(Include = "Id,Name")] GenreModel genreModel)
         {
             if (ModelState.IsValid)
@@ -64,6 +68,7 @@ namespace OnlineShopProject
         }
 
         // GET: Genres/Edit/5
+        [RejectUnauthorizedUsers]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -83,6 +88,7 @@ namespace OnlineShopProject
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [RejectUnauthorizedUsers]
         public ActionResult Edit([Bind(Include = "Id,Name")] GenreModel genreModel)
         {
             if (ModelState.IsValid)
@@ -95,6 +101,7 @@ namespace OnlineShopProject
         }
 
         // GET: Genres/Delete/5
+        [RejectUnauthorizedUsers]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -112,6 +119,7 @@ namespace OnlineShopProject
         // POST: Genres/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [RejectUnauthorizedUsers]
         public ActionResult DeleteConfirmed(int id)
         {
             GenreModel genreModel = db.GenreModels.Find(id);

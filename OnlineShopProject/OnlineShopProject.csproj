@@ -170,6 +170,7 @@
     <Compile Include="Controllers\ImagesController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\ReviewsController.cs" />
+    <Compile Include="Filters\RejectUnauthorizedUsers.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -284,6 +285,7 @@
     <Content Include="Scripts\price-range.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Uploads\Albums\CD_Covers\Overexposed.jpg" />
+    <Content Include="Uploads\Albums\CD_Covers\SongsAboutJane.jpg" />
     <Content Include="Uploads\Albums\CD_Covers\V.jpg" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
