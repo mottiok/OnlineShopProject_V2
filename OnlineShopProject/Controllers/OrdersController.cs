@@ -85,23 +85,8 @@ namespace OnlineShopProject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(string FirstName, string LastName, string Address, string City, string ZipCode, int CountryId, string Phone, string CreditCardNumber, int ExpirationMonth, int ExpirationYear, int CVV2, int CartModelId)
+        public ActionResult Create([Bind(Include = "Id,FirstName,LastName,Address,City,ZipCode,CountryId,Phone,CreditCardNumber,ExpirationMonth,ExpirationYear,CVV2")] BillingDetailsModel billingDetailsModel, int CartModelId)
         {
-            BillingDetailsModel billingDetailsModel = new BillingDetailsModel()
-            {
-                FirstName = FirstName,
-                LastName = LastName,
-                Address = Address,
-                City = City,
-                ZipCode = ZipCode,
-                CountryId = CountryId,
-                Phone = Phone,
-                CreditCardNumber = CreditCardNumber,
-                ExpirationMonth = ExpirationMonth,
-                ExpirationYear = ExpirationYear,
-                CVV2 = CVV2
-            };
-
             db.BillingDetailsModels.Add(billingDetailsModel);
 
             ApplicationUser currentUser = db.Users.Find(User.Identity.GetUserId());

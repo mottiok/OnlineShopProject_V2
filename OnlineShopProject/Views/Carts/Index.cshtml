@@ -35,10 +35,10 @@
                         {
                             <tr>
                                 <td class="cart_product">
-                                    <a href=""><img src="@item.Album.ImagePath" alt="" class="cart-product-image"></a>
+                                    <a href="@Url.Action("Details", "Albums", new { Id = item.AlbumId })"><img src="@item.Album.ImagePath" alt="" class="cart-product-image"></a>
                                 </td>
                                 <td class="cart_description">
-                                    <h4><a href="">@item.Album.Name</a></h4>
+                                    <h4><a href="@Url.Action("Details", "Albums", new { Id = item.AlbumId })">@item.Album.Name</a></h4>
                                     <p>By @item.Album.Artist.Name</p>
                                 </td>
                                 <td class="cart_price">
