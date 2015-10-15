@@ -20,6 +20,7 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -288,6 +289,7 @@
     <Content Include="Scripts\jquery.scrollUp.min.js" />
     <Content Include="Scripts\albums.js" />
     <Content Include="Scripts\main.js" />
+    <Content Include="Scripts\mapLoad.js" />
     <Content Include="Scripts\price-range.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Uploads\Albums\CD_Covers\Overexposed.jpg" />
