@@ -12,6 +12,7 @@ using Microsoft.Owin.Security;
 using Owin;
 using OnlineShopProject.Models;
 using System.Data.Entity;
+using System.Web.Script.Serialization;
 
 namespace OnlineShopProject.Controllers
 {
@@ -276,10 +277,12 @@ namespace OnlineShopProject.Controllers
 
             var addresses = db.BillingDetailsModels.Include(a => a.Country).ToArray();
             string addressesString = "";
+
             for (int i = 0; i < addresses.Count(); i++)
             {
-                addressesString += addresses.ElementAt(i).Address + " " + addresses.ElementAt(i).Country.Country + '~' ;
+                addressesString += addresses.ElementAt(i).Address + " " + addresses.ElementAt(i).City + " " + addresses.ElementAt(i).Country.Country + '~' ;
             }
+
             ViewBag.mapAddresses = addressesString.ToString();
             return View();
         }

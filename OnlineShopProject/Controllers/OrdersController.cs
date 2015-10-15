@@ -85,13 +85,14 @@ namespace OnlineShopProject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(string FirstName, string LastName, string Address, string ZipCode, int CountryId, string Phone, string CreditCardNumber, int ExpirationMonth, int ExpirationYear, int CVV2, int CartModelId)
+        public ActionResult Create(string FirstName, string LastName, string Address, string City, string ZipCode, int CountryId, string Phone, string CreditCardNumber, int ExpirationMonth, int ExpirationYear, int CVV2, int CartModelId)
         {
             BillingDetailsModel billingDetailsModel = new BillingDetailsModel()
             {
                 FirstName = FirstName,
                 LastName = LastName,
                 Address = Address,
+                City = City,
                 ZipCode = ZipCode,
                 CountryId = CountryId,
                 Phone = Phone,
