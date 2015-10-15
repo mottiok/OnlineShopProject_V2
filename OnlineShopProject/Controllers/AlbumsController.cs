@@ -29,6 +29,8 @@ namespace OnlineShopProject.Models
 
             ViewBag.user = GetCurrentUser();
 
+            ViewBag.ActionName = "Index";
+
             return View(albumModels.ToPagedList(page, pageSize));
         }
 
@@ -59,13 +61,14 @@ namespace OnlineShopProject.Models
             return View(albumModels.ToList());
         }
 
-        public ActionResult Filter(int? genre, int? artist, int? decade, double? price)
+        public ActionResult Filter(int? genre, int? artist, int? decade, double? price, int page = 1, int pageSize = 5)
         {
             IQueryable<AlbumModel> filterQuery = db.AlbumModels;
 
             if (decade != null)
             {
                 int intDecate = (int)decade;
+                ViewBag.decade = intDecate;
                 DateTime bottomDateTime = new DateTime(intDecate, 1, 1);
                 DateTime higherDateTime = new DateTime(intDecate + 10, 1, 1);
 
@@ -76,18 +79,22 @@ namespace OnlineShopProject.Models
             if (genre != null)
             {
                 int inGenreId = (int)genre;
+                ViewBag.genre = inGenreId;
                 filterQuery = filterQuery.Where(g => g.GenreId == inGenreId);
             }
 
             if (artist != null)
             {
                 int intArtistId = (int)artist;
+                ViewBag.artist = intArtistId;
                 filterQuery = filterQuery.Where(a => a.ArtistId == intArtistId);
             }
 
             if (price != null)
             {
                 double doublePrice = (double)price;
+                ViewBag.price = doublePrice;
+
                 if (price == 20)
                 {
                     filterQuery = filterQuery.Where(p => p.Price >= doublePrice);
@@ -100,8 +107,9 @@ namespace OnlineShopProject.Models
 
             SetCarModelId();
             ViewBag.user = GetCurrentUser();
+            ViewBag.ActionName = "Filter";
 
-            return View(filterQuery);
+            return View(filterQuery.OrderByDescending(x => x.ReleaseDate).ToPagedList(page, pageSize));
         }
 
 

@@ -44,7 +44,15 @@
                             </div>
                         </div>
                     }
-                    @Html.PagedListPager(Model, page => Url.Action("Index", new { page, pageSize = Model.PageSize }))
+                    @if (ViewBag.ActionName == "Index")
+                    {
+                        @Html.PagedListPager(Model, page => Url.Action(ViewBag.ActionName, new { page, pageSize = Model.PageSize }))
+                    }
+                    else
+                    {
+                        @Html.PagedListPager(Model, page => Url.Action(ViewBag.ActionName, new { page, pageSize = Model.PageSize, genre = ViewBag.genre, artist = ViewBag.artist, decade = ViewBag.decade, price = ViewBag.price }))
+                    }
+
                     Showing @Model.FirstItemOnPage to @Model.LastItemOnPage of @Model.TotalItemCount Albums
                 </div>
                 <div>
