@@ -21,6 +21,26 @@ namespace OnlineShopProject
             return View(songModels.ToList());
         }
 
+        public ActionResult AdminIndex()
+        {
+            var songModels = db.SongModels.Include(s => s.Album);
+            return View(songModels.ToList());
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult FilterIndex(string SearchPattern)
+        {
+            var songModels = db.SongModels.Include(s => s.Album);
+
+            if (SearchPattern != null)
+            {
+                songModels = songModels.Where(x => x.Name.Contains(SearchPattern) || x.Album.Name.Contains(SearchPattern));
+            }
+
+            return View("AdminIndex", songModels.ToList());
+        }
+
         // GET: Songs/Details/5
         public ActionResult Details(int? id)
         {
@@ -54,7 +74,7 @@ namespace OnlineShopProject
             {
                 db.SongModels.Add(songModel);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("AdminIndex");
             }
 
             ViewBag.AlbumId = new SelectList(db.AlbumModels, "Id", "Name", songModel.AlbumId);
@@ -88,7 +108,7 @@ namespace OnlineShopProject
             {
                 db.Entry(songModel).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("AdminIndex");
             }
             ViewBag.AlbumId = new SelectList(db.AlbumModels, "Id", "Name", songModel.AlbumId);
             return View(songModel);
@@ -117,7 +137,7 @@ namespace OnlineShopProject
             SongModel songModel = db.SongModels.Find(id);
             db.SongModels.Remove(songModel);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("AdminIndex");
         }
 
         protected override void Dispose(bool disposing)
