@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using OnlineShopProject.Models;
+using OnlineShopProject.Filters;
 
 namespace OnlineShopProject
 {
@@ -50,6 +51,7 @@ namespace OnlineShopProject
         }
 
         // GET: Songs/Create
+        [RejectUnauthorizedUsers]
         public ActionResult Create()
         {
             ViewBag.AlbumId = new SelectList(db.AlbumModels, "Id", "Name");
@@ -61,6 +63,7 @@ namespace OnlineShopProject
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [RejectUnauthorizedUsers]
         public ActionResult Create([Bind(Include = "Id,Name,AlbumId,Duration")] SongModel songModel)
         {
             if (ModelState.IsValid)
@@ -75,6 +78,7 @@ namespace OnlineShopProject
         }
 
         // GET: Songs/Edit/5
+        [RejectUnauthorizedUsers]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -95,6 +99,7 @@ namespace OnlineShopProject
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [RejectUnauthorizedUsers]
         public ActionResult Edit([Bind(Include = "Id,Name,AlbumId,Duration")] SongModel songModel)
         {
             if (ModelState.IsValid)
@@ -108,6 +113,7 @@ namespace OnlineShopProject
         }
 
         // GET: Songs/Delete/5
+        [RejectUnauthorizedUsers]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -125,6 +131,7 @@ namespace OnlineShopProject
         // POST: Songs/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [RejectUnauthorizedUsers]
         public ActionResult DeleteConfirmed(int id)
         {
             SongModel songModel = db.SongModels.Find(id);

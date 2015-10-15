@@ -1,4 +1,8 @@
-﻿<section>
+﻿@using PagedList
+@using PagedList.Mvc
+@model PagedList<OnlineShopProject.Models.AlbumModel>
+
+<section>
     <div class="container">
         <div class="row">
             <div class="col-sm-3">
@@ -40,6 +44,10 @@
                             </div>
                         </div>
                     }
+                    @Html.PagedListPager(Model, page => Url.Action("Index", new { page, pageSize = Model.PageSize }))
+                    Showing @Model.FirstItemOnPage to @Model.LastItemOnPage of @Model.TotalItemCount Albums
+                </div>
+                <div>
                 </div>
             </div>
         </div>

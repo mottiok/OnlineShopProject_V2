@@ -10,6 +10,7 @@ using Microsoft.AspNet.Identity;
 using System.IO;
 using OnlineShopProject.Controllers;
 using OnlineShopProject.Filters;
+using PagedList;
 
 namespace OnlineShopProject.Models
 {
@@ -18,15 +19,15 @@ namespace OnlineShopProject.Models
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Albums
-        public ActionResult Index()
+        public ActionResult Index(int page = 1, int pageSize = 5)
         {
-            var albumModels = db.AlbumModels.Include(a => a.Artist).Include(a => a.Genre);
+            var albumModels = db.AlbumModels.Include(a => a.Artist).Include(a => a.Genre).OrderByDescending(x => x.ReleaseDate);
 
             SetCarModelId();
 
             ViewBag.user = GetCurrentUser();
 
-            return View(albumModels.ToList());
+            return View(albumModels.ToPagedList(page, pageSize));
         }
 
         private ApplicationUser GetCurrentUser()
