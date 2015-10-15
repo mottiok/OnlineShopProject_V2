@@ -22,8 +22,15 @@ namespace OnlineShopProject
         }
 
         [RejectUnauthorizedUsers]
-        public ActionResult AdminIndex()
+        public ActionResult AdminIndex(string SearchPattern)
         {
+            if (SearchPattern != null)
+            {
+                var genres = db.GenreModels.Where(x => x.Name.Contains(SearchPattern));
+                ViewBag.SearchPattern = SearchPattern;
+                return View(genres.ToList());
+            }
+
             return View(db.GenreModels.ToList());
         }
 

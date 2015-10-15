@@ -8,21 +8,20 @@
     <div class="container">
         <div class="row">
             <h2 class="title text-center admin-title">Edit Songs Items</h2>
-            @using (Html.BeginForm("FilterIndex", "Songs", FormMethod.Post, new { @id = "search-filter" }))
+            @using (Html.BeginForm("AdminIndex", "Songs", FormMethod.Get))
             {
-                @Html.AntiForgeryToken()
                 <div class="search_box">
-                    <input type="text" placeholder="Search" name="SearchPattern">
+                    <input type="text" placeholder="Search" name="SearchPattern" value="@ViewBag.SearchPattern" autofocus>
                 </div>
                 <input type="submit" value="Submit" class="hidden"/>
             }
             <table class="table">
                 <tr>
                     <th>
-                        @Html.DisplayName("Album Name")
+                        @Html.DisplayName("Name")
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Name)
+                        @Html.DisplayName("Album")
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.Duration)
@@ -34,10 +33,10 @@
                 {
                     <tr>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Album.Name)
+                            @Html.DisplayFor(modelItem => item.Name)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Name)
+                            @Html.DisplayFor(modelItem => item.Album.Name)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Duration)

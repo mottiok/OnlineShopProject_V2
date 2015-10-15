@@ -21,24 +21,17 @@ namespace OnlineShopProject
             return View(songModels.ToList());
         }
 
-        public ActionResult AdminIndex()
-        {
-            var songModels = db.SongModels.Include(s => s.Album);
-            return View(songModels.ToList());
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult FilterIndex(string SearchPattern)
+        public ActionResult AdminIndex(string SearchPattern)
         {
             var songModels = db.SongModels.Include(s => s.Album);
 
             if (SearchPattern != null)
             {
                 songModels = songModels.Where(x => x.Name.Contains(SearchPattern) || x.Album.Name.Contains(SearchPattern));
+                ViewBag.SearchPattern = SearchPattern;
             }
 
-            return View("AdminIndex", songModels.ToList());
+            return View(songModels.ToList());
         }
 
         // GET: Songs/Details/5

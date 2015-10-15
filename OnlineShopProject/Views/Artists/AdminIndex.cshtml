@@ -4,6 +4,13 @@
     <div class="container">
         <div class="row">
             <h2 class="title text-center admin-title">Edit Artists Items</h2>
+            @using (Html.BeginForm("AdminIndex", "Artists", FormMethod.Get))
+            {
+                <div class="search_box">
+                    <input type="text" placeholder="Search" name="SearchPattern" value="@ViewBag.SearchPattern" autofocus>
+                </div>
+                <input type="submit" value="Submit" class="hidden" />
+            }
             <table class="table">
                 <tr>
                     <th>

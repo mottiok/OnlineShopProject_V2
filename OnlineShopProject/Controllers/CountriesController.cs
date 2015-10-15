@@ -22,8 +22,15 @@ namespace OnlineShopProject
         }
 
         [RejectUnauthorizedUsers]
-        public ActionResult AdminIndex()
+        public ActionResult AdminIndex(string SearchPattern)
         {
+            if (SearchPattern != null)
+            {
+                var countries = db.CountryModels.Where(x => x.Country.Contains(SearchPattern));
+                ViewBag.SearchPattern = SearchPattern;
+                return View(countries.ToList());
+            }
+
             return View(db.CountryModels.ToList());
         }
 

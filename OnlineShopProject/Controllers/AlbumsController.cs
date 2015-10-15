@@ -43,9 +43,16 @@ namespace OnlineShopProject.Models
         }
 
         [RejectUnauthorizedUsers]
-        public ActionResult AdminIndex()
+        public ActionResult AdminIndex(string SearchPattern)
         {
             var albumModels = db.AlbumModels.Include(a => a.Artist).Include(a => a.Genre);
+
+            if (SearchPattern != null)
+            {
+                albumModels = albumModels.Where(x => x.Name.Contains(SearchPattern) || x.Genre.Name.Contains(SearchPattern) || x.Artist.Name.Contains(SearchPattern));
+                ViewBag.SearchPattern = SearchPattern;
+            }
+
             return View(albumModels.ToList());
         }
 
