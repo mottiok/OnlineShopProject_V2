@@ -8,111 +8,129 @@ using System.Web;
 using System.Web.Mvc;
 using OnlineShopProject.Models;
 
-namespace OnlineShopProject.Controllers
+namespace OnlineShopProject
 {
-    public class ImagesController : Controller
+    public class SongsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: Images
+        // GET: Songs
         public ActionResult Index()
         {
-            return View(db.ImageModels.ToList());
+            var songModels = db.SongModels.Include(s => s.Album);
+            return View(songModels.ToList());
         }
 
-        // GET: Images/Details/5
+        public ActionResult AdminIndex(string SearchPattern)
+        {
+            var songModels = db.SongModels.Include(s => s.Album);
+
+            if (SearchPattern != null)
+            {
+                songModels = songModels.Where(x => x.Name.Contains(SearchPattern) || x.Album.Name.Contains(SearchPattern));
+                ViewBag.SearchPattern = SearchPattern;
+            }
+
+            return View(songModels.ToList());
+        }
+
+        // GET: Songs/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ImageModel imageModel = db.ImageModels.Find(id);
-            if (imageModel == null)
+            SongModel songModel = db.SongModels.Find(id);
+            if (songModel == null)
             {
                 return HttpNotFound();
             }
-            return View(imageModel);
+            return View(songModel);
         }
 
-        // GET: Images/Create
+        // GET: Songs/Create
         public ActionResult Create()
         {
+            ViewBag.AlbumId = new SelectList(db.AlbumModels, "Id", "Name");
             return View();
         }
 
-        // POST: Images/Create
+        // POST: Songs/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Path")] ImageModel imageModel)
+        public ActionResult Create([Bind(Include = "Id,Name,AlbumId,Duration")] SongModel songModel)
         {
             if (ModelState.IsValid)
             {
-                db.ImageModels.Add(imageModel);
+                db.SongModels.Add(songModel);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("AdminIndex");
             }
 
-            return View(imageModel);
+            ViewBag.AlbumId = new SelectList(db.AlbumModels, "Id", "Name", songModel.AlbumId);
+            return View(songModel);
         }
 
-        // GET: Images/Edit/5
+        // GET: Songs/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ImageModel imageModel = db.ImageModels.Find(id);
-            if (imageModel == null)
+            SongModel songModel = db.SongModels.Find(id);
+            if (songModel == null)
             {
                 return HttpNotFound();
             }
-            return View(imageModel);
+            ViewBag.AlbumId = new SelectList(db.AlbumModels, "Id", "Name", songModel.AlbumId);
+            return View(songModel);
         }
 
-        // POST: Images/Edit/5
+        // POST: Songs/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Path")] ImageModel imageModel)
+        public ActionResult Edit([Bind(Include = "Id,Name,AlbumId,Duration")] SongModel songModel)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(imageModel).State = EntityState.Modified;
+                db.Entry(songModel).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("AdminIndex");
             }
-            return View(imageModel);
+            ViewBag.AlbumId = new SelectList(db.AlbumModels, "Id", "Name", songModel.AlbumId);
+            return View(songModel);
         }
 
-        // GET: Images/Delete/5
+        // GET: Songs/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ImageModel imageModel = db.ImageModels.Find(id);
-            if (imageModel == null)
+            SongModel songModel = db.SongModels.Find(id);
+            if (songModel == null)
             {
                 return HttpNotFound();
             }
-            return View(imageModel);
+            return View(songModel);
         }
 
-        // POST: Images/Delete/5
+        // POST: Songs/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            ImageModel imageModel = db.ImageModels.Find(id);
-            db.ImageModels.Remove(imageModel);
+            SongModel songModel = db.SongModels.Find(id);
+            db.SongModels.Remove(songModel);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("AdminIndex");
         }
 
         protected override void Dispose(bool disposing)

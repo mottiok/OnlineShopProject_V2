@@ -20,6 +20,7 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -169,9 +170,10 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\CountriesController.cs" />
     <Compile Include="Controllers\GenresController.cs" />
-    <Compile Include="Controllers\ImagesController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\ReviewsController.cs" />
+    <Compile Include="Controllers\SongsController.cs" />
+    <Compile Include="Filters\RejectUnauthorizedUsers.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -186,7 +188,6 @@
     <Compile Include="Models\CurrencyModel.cs" />
     <Compile Include="Models\GenreModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\ImageModel.cs" />
     <Compile Include="Models\ItemModel.cs" />
     <Compile Include="Models\AlbumModel.cs" />
     <Compile Include="Models\OrderItemModel.cs" />
@@ -200,7 +201,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
-    <Compile Include="SongsController.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -290,9 +290,11 @@
     <Content Include="Scripts\jquery.scrollUp.min.js" />
     <Content Include="Scripts\albums.js" />
     <Content Include="Scripts\main.js" />
+    <Content Include="Scripts\mapLoad.js" />
     <Content Include="Scripts\price-range.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Uploads\Albums\CD_Covers\Overexposed.jpg" />
+    <Content Include="Uploads\Albums\CD_Covers\SongsAboutJane.jpg" />
     <Content Include="Uploads\Albums\CD_Covers\V.jpg" />
     <None Include="Service References\CurrencyReference\configuration91.svcinfo" />
     <None Include="Service References\CurrencyReference\configuration.svcinfo" />
@@ -328,7 +330,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\UserHandle\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -359,11 +360,6 @@
     <Content Include="Views\OrderItems\Details.cshtml" />
     <Content Include="Views\OrderItems\Edit.cshtml" />
     <Content Include="Views\OrderItems\Index.cshtml" />
-    <Content Include="Views\Images\Create.cshtml" />
-    <Content Include="Views\Images\Delete.cshtml" />
-    <Content Include="Views\Images\Details.cshtml" />
-    <Content Include="Views\Images\Edit.cshtml" />
-    <Content Include="Views\Images\Index.cshtml" />
     <Content Include="Views\Shared\_FacetsPartial.cshtml" />
     <Content Include="Views\Carts\Create.cshtml" />
     <Content Include="Views\Carts\Delete.cshtml" />
@@ -417,6 +413,7 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadataStorage Include="Service References\CurrencyReference\" />
+    <Content Include="Views\Songs\AdminIndex.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

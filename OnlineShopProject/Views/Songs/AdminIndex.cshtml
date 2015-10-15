@@ -1,5 +1,4 @@
-﻿@using System.Collections.Specialized
-@model IEnumerable<OnlineShopProject.Models.GenreModel>
+﻿@model IEnumerable<OnlineShopProject.Models.SongModel>
 
 @{
     ViewBag.Title = "Index";
@@ -8,18 +7,24 @@
 <section>
     <div class="container">
         <div class="row">
-            <h2 class="title text-center admin-title">Edit Genres Items</h2>
-            @using (Html.BeginForm("AdminIndex", "Genres", FormMethod.Get))
+            <h2 class="title text-center admin-title">Edit Songs Items</h2>
+            @using (Html.BeginForm("AdminIndex", "Songs", FormMethod.Get))
             {
                 <div class="search_box">
                     <input type="text" placeholder="Search" name="SearchPattern" value="@ViewBag.SearchPattern" autofocus>
                 </div>
-                <input type="submit" value="Submit" class="hidden" />
+                <input type="submit" value="Submit" class="hidden"/>
             }
             <table class="table">
                 <tr>
                     <th>
-                        @Html.DisplayNameFor(model => model.Name)
+                        @Html.DisplayName("Name")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Album")
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Duration)
                     </th>
                     <th></th>
                 </tr>
@@ -31,6 +36,12 @@
                             @Html.DisplayFor(modelItem => item.Name)
                         </td>
                         <td>
+                            @Html.DisplayFor(modelItem => item.Album.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Duration)
+                        </td>
+                        <td>
                             @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
                             @Html.ActionLink("Delete", "Delete", new { id = item.Id })
                         </td>
@@ -38,6 +49,7 @@
                 }
 
             </table>
+
         </div>
     </div>
 </section>

@@ -41,6 +41,11 @@
     {
         if (Request.IsAuthenticated)
         {
+            if (user.CurrencyModel.Currency == Currency.USD)
+            {
+                return "$" + amount;                        
+            }
+            
             CurrencyConvertorSoapClient client = new CurrencyConvertorSoapClient("CurrencyConvertorSoap");
             double conversion = client.ConversionRate(Currency.USD, user.CurrencyModel.Currency);
 

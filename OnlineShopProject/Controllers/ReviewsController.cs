@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using OnlineShopProject.Models;
+using OnlineShopProject.Filters;
 
 namespace OnlineShopProject.Controllers
 {
@@ -21,6 +22,7 @@ namespace OnlineShopProject.Controllers
             return View(reviewModels.ToList());
         }
 
+        [RejectUnauthorizedUsers]
         public ActionResult AdminIndex()
         {
             var reviewModels = db.ReviewModels.Include(r => r.AlbumModel);

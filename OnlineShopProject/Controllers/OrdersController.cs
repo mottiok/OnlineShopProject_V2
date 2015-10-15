@@ -70,7 +70,7 @@ namespace OnlineShopProject.Controllers
 
                 ViewBag.CartModel = cartModel;
                 ViewBag.CountryId = new SelectList(db.CountryModels, "Id", "Country");
-                ViewBag.BillingDetailsId = new SelectList(db.BillingDetailsModels, "Id", "FirstName"); // TODO: REMOVE UNUSED STUFF LIKE THIS
+                ViewBag.BillingDetailsId = new SelectList(db.BillingDetailsModels, "Id", "FirstName");
 
                 ViewBag.user = GetCurrentUser();
 
@@ -85,51 +85,51 @@ namespace OnlineShopProject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(string FirstName, string LastName, string Address, string ZipCode, int CountryId, string Phone, string CreditCardNumber, int ExpirationMonth, int ExpirationYear, int CVV2, int CartModelId)
+        public ActionResult Create([Bind(Include = "Id,FirstName,LastName,Address,City,ZipCode,CountryId,Phone,CreditCardNumber,ExpirationMonth,ExpirationYear,CVV2")] BillingDetailsModel billingDetailsModel, int CartModelId)
         {
-            BillingDetailsModel billingDetailsModel = new BillingDetailsModel()
-            {
-                FirstName = FirstName,
-                LastName = LastName,
-                Address = Address,
-                ZipCode = ZipCode,
-                CountryId = CountryId,
-                Phone = Phone,
-                CreditCardNumber = CreditCardNumber,
-                ExpirationMonth = ExpirationMonth,
-                ExpirationYear = ExpirationYear,
-                CVV2 = CVV2
-            };
-
-            db.BillingDetailsModels.Add(billingDetailsModel);
-
             ApplicationUser currentUser = db.Users.Find(User.Identity.GetUserId());
 
-            OrderModel orderModel = new OrderModel()
+            if (ModelState.IsValid)
             {
-                BillingDetailsId = billingDetailsModel.Id,
-                ApplicationUser = currentUser,
-                CreatedAt = DateTime.Now
-            };
+                db.BillingDetailsModels.Add(billingDetailsModel);
 
-            db.OrderModels.Add(orderModel);
-
-            CartModel cartModel = db.CartModels.Where(x => x.Id == CartModelId).Include(x => x.CartItems.Select(a => a.Album)).SingleOrDefault();
-
-            foreach (CartItemModel item in cartModel.CartItems)
-            {
-                db.OrderItemModels.Add(new OrderItemModel()
+                OrderModel orderModel = new OrderModel()
                 {
-                    AlbumId = item.AlbumId,
-                    OrderModelId = orderModel.Id,
-                    Price = item.Album.Price,
-                    Quantity = item.Quantity
-                });
+                    BillingDetailsId = billingDetailsModel.Id,
+                    ApplicationUser = currentUser,
+                    CreatedAt = DateTime.Now
+                };
+
+                db.OrderModels.Add(orderModel);
+
+                CartModel cartModel = db.CartModels.Where(x => x.Id == CartModelId).Include(x => x.CartItems.Select(a => a.Album)).SingleOrDefault();
+
+                foreach (CartItemModel item in cartModel.CartItems)
+                {
+                    db.OrderItemModels.Add(new OrderItemModel()
+                    {
+                        AlbumId = item.AlbumId,
+                        OrderModelId = orderModel.Id,
+                        Price = item.Album.Price,
+                        Quantity = item.Quantity
+                    });
+                }
+
+                db.CartItemModels.RemoveRange(cartModel.CartItems);
+                db.SaveChanges();
+                return RedirectToAction("Index");
             }
 
-            db.CartItemModels.RemoveRange(cartModel.CartItems);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            CartModel userCartModel = db.CartModels.Where(x => x.Id == currentUser.CartModelId).Include(x => x.CartItems.Select(a => a.Album).Select(z => z.Artist)).SingleOrDefault();
+
+            ViewBag.CartModel = userCartModel;
+            ViewBag.CountryId = new SelectList(db.CountryModels, "Id", "Country");
+            ViewBag.BillingDetailsId = new SelectList(db.BillingDetailsModels, "Id", "FirstName");
+
+            ViewBag.user = GetCurrentUser();
+
+            return View();
+
         }
 
         // GET: Orders/Edit/5

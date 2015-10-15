@@ -3165,5 +3165,13 @@ h2.title {
 .contact-info .social-networks ul li a:hover{
   color: #FE980F;
 }
+.gmapDisp {
+    margin-left: auto;
+    margin-right: auto;
+    width: 500px;
+    height: 400px;
+    background-color: #CCC;
+    margin-bottom: 25px;
+  }
 
 

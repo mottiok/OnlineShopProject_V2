@@ -11,6 +11,7 @@ using Microsoft.AspNet.Identity;
 using System.IO;
 using System.Web.Routing;
 using OnlineShopProject.Controllers;
+using OnlineShopProject.Filters;
 
 namespace OnlineShopProject.Models
 {
@@ -42,14 +43,18 @@ namespace OnlineShopProject.Models
 
             return null;
         }
-        public ActionResult AdminIndex()
+
+        [RejectUnauthorizedUsers]
+        public ActionResult AdminIndex(string SearchPattern)
         {
-            if (!IsAdmin())
+            var albumModels = db.AlbumModels.Include(a => a.Artist).Include(a => a.Genre);
+
+            if (SearchPattern != null)
             {
-                return RedirectToAction("Index", "Albums");
+                albumModels = albumModels.Where(x => x.Name.Contains(SearchPattern) || x.Genre.Name.Contains(SearchPattern) || x.Artist.Name.Contains(SearchPattern));
+                ViewBag.SearchPattern = SearchPattern;
             }
 
-            var albumModels = db.AlbumModels.Include(a => a.Artist).Include(a => a.Genre);
             return View(albumModels.ToList());
         }
 
@@ -124,13 +129,9 @@ namespace OnlineShopProject.Models
         }
 
         // GET: Albums/Create
+        [RejectUnauthorizedUsers]
         public ActionResult Create()
         {
-            if (!IsAdmin())
-            {
-                return RedirectToAction("Index", "Albums");
-            }
-
             ViewBag.ArtistId = new SelectList(db.ArtistModels, "Id", "Name");
             ViewBag.GenreId = new SelectList(db.GenreModels, "Id", "Name");
             return View();
@@ -141,13 +142,9 @@ namespace OnlineShopProject.Models
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [RejectUnauthorizedUsers]
         public ActionResult Create([Bind(Include = "Id,ArtistId,ReleaseDate,GenreId,Name,Price")] AlbumModel albumModel, HttpPostedFileBase image)
         {
-            if (!IsAdmin())
-            {
-                return RedirectToAction("Index", "Albums");
-            }
-
             if (ModelState.IsValid)
             {
                 if (image != null && image.ContentLength > 0)
@@ -169,13 +166,9 @@ namespace OnlineShopProject.Models
         }
 
         // GET: Albums/Edit/5
+        [RejectUnauthorizedUsers]
         public ActionResult Edit(int? id)
         {
-            if (!IsAdmin())
-            {
-                return RedirectToAction("Index", "Albums");
-            }
-
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -196,13 +189,9 @@ namespace OnlineShopProject.Models
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [RejectUnauthorizedUsers]
         public ActionResult Edit([Bind(Include = "Id,ArtistId,ReleaseDate,GenreId,Name,Price,ImagePath")] AlbumModel albumModel, HttpPostedFileBase image)
         {
-            if (!IsAdmin())
-        {
-                return RedirectToAction("Index", "Albums");
-            }
-
             if (ModelState.IsValid)
             {
                 db.Entry(albumModel).State = EntityState.Modified;
@@ -225,13 +214,9 @@ namespace OnlineShopProject.Models
         }
 
         // GET: Albums/Delete/5
+        [RejectUnauthorizedUsers]
         public ActionResult Delete(int? id)
         {
-            if (!IsAdmin())
-            {
-                return RedirectToAction("Index", "Albums");
-            }
-
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -247,13 +232,9 @@ namespace OnlineShopProject.Models
         // POST: Albums/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [RejectUnauthorizedUsers]
         public ActionResult DeleteConfirmed(int id)
         {
-            if (!IsAdmin())
-            {
-                return RedirectToAction("Index", "Albums");
-            }
-
             AlbumModel albumModel = db.AlbumModels.Find(id);
             db.AlbumModels.Remove(albumModel);
             db.SaveChanges();
@@ -267,12 +248,6 @@ namespace OnlineShopProject.Models
                 ApplicationUser currentUser = db.Users.Find(User.Identity.GetUserId());
                 ViewBag.CartModelId = currentUser.CartModelId;
             }
-        }
-
-        public bool IsAdmin()
-        {
-            return true; // TODO: NEED FIXING
-            //return User.IsInRole("Admins");
         }
 
         protected override void Dispose(bool disposing)

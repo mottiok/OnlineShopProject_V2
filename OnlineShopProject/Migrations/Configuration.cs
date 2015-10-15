@@ -19,8 +19,6 @@ namespace OnlineShopProject.Migrations
 
         protected override void Seed(OnlineShopProject.Models.ApplicationDbContext context)
         {
-            PasswordHasher hasher = new PasswordHasher();
-
             #region Countries
 
             context.CountryModels.AddOrUpdate(new CountryModel() { Country = "Israel" },
@@ -34,33 +32,52 @@ namespace OnlineShopProject.Migrations
 
             #region Currency
 
-            CurrencyModel currency1 = new CurrencyModel { Sign = "$", Currency = Currency.USD};
-            CurrencyModel currency2 = new CurrencyModel { Sign = "¤", Currency = Currency.ILS};
-            CurrencyModel currency3 = new CurrencyModel { Sign = "€", Currency = Currency.EUR};
-
-            context.CurrencyModels.AddOrUpdate(currency1, currency2, currency3);
+            CurrencyModel defaultCurrency = new CurrencyModel { Sign = "$", Currency = Currency.USD };
+            context.CurrencyModels.AddOrUpdate(defaultCurrency, new CurrencyModel { Sign = "¤", Currency = Currency.ILS}, new CurrencyModel { Sign = "€", Currency = Currency.EUR});
 
             #endregion
 
             #region Genres
 
-            GenreModel genre = new GenreModel { Name = "Pop" };
-            context.GenreModels.AddOrUpdate(genre);
+            GenreModel pop = new GenreModel { Name = "Pop" };
+            context.GenreModels.AddOrUpdate(pop);
 
             #endregion
 
             #region Artists
 
-            ArtistModel artist = new ArtistModel { Name = "Maroon 5" };
-            context.ArtistModels.AddOrUpdate(artist);
+            ArtistModel maroon5 = new ArtistModel { Name = "Maroon 5" };
+            context.ArtistModels.AddOrUpdate(maroon5);
 
             #endregion
 
-            CartModel cart1 = new CartModel();
-            CartModel cart2 = new CartModel();
-            CartModel cart3 = new CartModel();
-            CartModel cart4 = new CartModel();
-            CartModel cart5 = new CartModel();
+            #region Users
+		    
+            UserStore<ApplicationUser> userStore = new UserStore<ApplicationUser>(context);
+            UserManager<ApplicationUser> userManager = new UserManager<ApplicationUser>(userStore);
+
+            ApplicationUser paula = new ApplicationUser { UserName = "paula@gmail.com", Email = "paula@gmail.com", CartModel = new CartModel(), CurrencyModel = defaultCurrency };
+            ApplicationUser andy = new ApplicationUser { UserName = "andy@gmail.com", Email = "andy@gmail.com", CartModel = new CartModel(), CurrencyModel = defaultCurrency };
+            ApplicationUser tim = new ApplicationUser { UserName = "tim@gmail.com", Email = "tim@gmail.com", CartModel = new CartModel(), CurrencyModel = defaultCurrency };
+            ApplicationUser mobs = new ApplicationUser { UserName = "tmobs@gmail.com", Email = "tmobs@gmail.com", CartModel = new CartModel(), CurrencyModel = defaultCurrency };
+
+            userManager.Create(paula, "Password1!");
+            userManager.Create(andy, "Password1!");
+            userManager.Create(tim, "Password1!");
+            userManager.Create(mobs, "Password1!");
+	        
+            #endregion
+
+            #region Admin Role & Power User
+
+            ApplicationUser admin = new ApplicationUser { UserName = "admin@gmail.com", Email = "admin@gmail.com", CartModel = new CartModel(), CurrencyModel = defaultCurrency };
+            userManager.Create(admin, "password");
+            context.Roles.AddOrUpdate(x => x.Name, new IdentityRole { Name = "Admins" });
+            context.SaveChanges();
+
+            userManager.AddToRole(admin.Id, "Admins");
+
+            #endregion
 
             #region Maroon 5
 
@@ -68,9 +85,9 @@ namespace OnlineShopProject.Migrations
 
             AlbumModel vDelux = new AlbumModel
                 {
-                    Genre = genre,
+                    Genre = pop,
                     ReleaseDate = DateTime.Now,
-                    Artist = artist,
+                    Artist = maroon5,
                     Name = "V (Delux)",
                     Price = 12.99,
                     ImagePath = "/Uploads/Albums/CD_Covers/V.jpg"
@@ -98,7 +115,7 @@ namespace OnlineShopProject.Migrations
                 Content = "LOVE it! I listen to Maroon 5 when I go out walking/running ... their music energizes/motivates me and makes the time fly by. There isn't a song on here I don't like which rarely happens....usually have to skip through some. I especially like \"Maps\" but \"It Was Always You\" has to be my favorite!",
                 CreatedAt = DateTime.Now,
                 Rating = 5,
-                ApplicationUser = new ApplicationUser { UserName = "Paula", PasswordHash = hasher.HashPassword("Password1"), Email = "paula@gmail.com", CartModel = cart1, CurrencyModel = currency1 }
+                ApplicationUser = paula
             });
 
             vDelux.Reviews.Add(new ReviewModel
@@ -107,7 +124,7 @@ namespace OnlineShopProject.Migrations
                 Content = "This is, in my opinion, the best Maroon 5 album of their career! That's saying a lot, as every album has been solid. There is something to be said for taking a year or two between albums. If you notice, those always seem to be the biggest hits. I believe Maroon 5 has another hit on their hands with V. Their first single, \"Maps\", tells a gripping story that's helped by a fantastic video. \"Animals\" is probably my favorite track. Then again, there's the track \"In Your Pocket\", which is so catchy. ",
                 CreatedAt = DateTime.Now,
                 Rating = 5,
-                ApplicationUser = new ApplicationUser { UserName = "Andy", PasswordHash = hasher.HashPassword("Password1"), Email = "andy@gmail.com", CartModel = cart2, CurrencyModel = currency3 }
+                ApplicationUser = andy
             });
 
             context.AlbumModels.AddOrUpdate(vDelux);
@@ -118,9 +135,9 @@ namespace OnlineShopProject.Migrations
 
             AlbumModel overExposed = new AlbumModel
                 {
-                    Genre = genre,
+                    Genre = pop,
                     ReleaseDate = DateTime.Now,
-                    Artist = artist,
+                    Artist = maroon5,
                     Name = "Overexposed",
                     Price = 9.49,
                     ImagePath = "/Uploads/Albums/CD_Covers/Overexposed.jpg"
@@ -146,7 +163,7 @@ namespace OnlineShopProject.Migrations
                 Content = "The irony of titling their new album \"Overexposed\" must have been lost on Adam Levine and Maroon 5. The album is overproduced, over-compressed and over-just-about-everything.",
                 CreatedAt = DateTime.Now,
                 Rating = 3,
-                ApplicationUser = new ApplicationUser { UserName = "Tim", PasswordHash = hasher.HashPassword("Password1"), Email = "tim@gmail.com", CartModel = cart3, CurrencyModel = currency2 }
+                ApplicationUser = tim
             });
 
             context.AlbumModels.AddOrUpdate(overExposed);
@@ -157,12 +174,12 @@ namespace OnlineShopProject.Migrations
 
             AlbumModel songsAboutJane = new AlbumModel
                 {
-                    Genre = genre,
+                    Genre = pop,
                     ReleaseDate = new DateTime(2002, 6, 25),
-                    Artist = artist,
+                    Artist = maroon5,
                     Name = "Songs About Jane",
                     Price = 5.0,
-                    ImagePath = "/Uploads/Albums/CD_Covers/songsaboutjane.jpg"
+                    ImagePath = "/Uploads/Albums/CD_Covers/SongsAboutJane.jpg"
                 };
 
             songsAboutJane.Songs = new System.Collections.Generic.List<SongModel>();
@@ -188,33 +205,13 @@ namespace OnlineShopProject.Migrations
                 Content = "Okay, not everyone will agree with me when I call this 'pop', but personally I think Maroon 5 is just about the best pop music around at the moment.",
                 CreatedAt = new DateTime(2005, 6, 5),
                 Rating = 3,
-                ApplicationUser = new ApplicationUser { UserName = "T.MOBS", PasswordHash = hasher.HashPassword("Password1"), Email = "tmobs@gmail.com", CartModel = cart4, CurrencyModel = currency1 }
+                ApplicationUser = mobs
             });
 
             context.AlbumModels.AddOrUpdate(songsAboutJane);
 
             #endregion 
 
-            #endregion
-
-            context.CartModels.AddOrUpdate(cart1, cart2, cart3, cart4);
-
-            #region Roles
-
-            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
-            roleManager.Create(new IdentityRole("Admins"));
-
-            //var store = new UserStore<ApplicationUser>(context);
-            //var manager = new UserManager<ApplicationUser>(store);
-            //var user = new ApplicationUser { UserName = "admin", Email = "admin@gmail.com", CartModel = cart5, CurrencyModel = currency1 };
-
-            //manager.Create(user, "Admin1!");
-
-            //context.SaveChanges();
-
-            //manager.AddToRole(user.Id, "Admins");
-
-            //context.SaveChanges();
             #endregion
         }
 

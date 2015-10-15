@@ -32,6 +32,19 @@
                     <a class="btn btn-default cart edit-item-admin" href="@Url.Action("AdminIndex", "Albums")">Edit Items</a>
                 </div>
             </div>
+            <h2 class="title text-center">Songs</h2>
+            <div class="row">
+                <div class="col-sm-4"></div>
+                <div class="col-sm-2">
+                    <a class="btn btn-default cart new-item-admin" href="@Url.Action("Create", "Songs")">Create New</a>
+                </div>
+                <div class="col-sm-1">
+                    <h2 class="or or-admin">OR</h2>
+                </div>
+                <div class="col-sm-2">
+                    <a class="btn btn-default cart edit-item-admin" href="@Url.Action("AdminIndex", "Songs")">Edit Items</a>
+                </div>
+            </div>
             <h2 class="title text-center">Countries</h2>
             <div class="row">
                 <div class="col-sm-4"></div>
@@ -55,23 +68,21 @@
                     <h2 class="or or-admin">OR</h2>
                 </div>
                 <div class="col-sm-2">
-                    <!-- TODO: DO NOT DELETE MODELS IF THEIRE ARE CONNECTED - RETURN SUMMARY ERROR -->
                     <a class="btn btn-default cart edit-item-admin" href="@Url.Action("AdminIndex", "Genres")">Edit Items</a>
                 </div>
             </div>
-            <h2 class="title text-center">Reviews</h2>
-            <div class="row">
-                <div class="col-sm-4"></div>
-                <div class="col-sm-2">
-                    <a class="btn btn-default cart new-item-admin" href="@Url.Action("Create", "Reviews")">Create New</a>
-                </div>
-                <div class="col-sm-1">
-                    <h2 class="or or-admin">OR</h2>
-                </div>
-                <div class="col-sm-2">
-                    <a class="btn btn-default cart edit-item-admin" href="@Url.Action("AdminIndex", "Reviews")">Edit Items</a>
-                </div>
-            </div>
         </div>
-    </div>
+        </div>
 </section>
+<section>
+    <div class="container">
+        <h2 class="title text-center">Shipping Addresses</h2>
+    </div>
+    <div id="gmap" class="gmapDisp">
+         <input type="hidden" id="mapAddresses" data-value="@ViewBag.mapAddresses" />
+     </div>
+</section>
+
+@section Scripts {
+    @Scripts.Render("~/Scripts/mapLoad.js")
+}

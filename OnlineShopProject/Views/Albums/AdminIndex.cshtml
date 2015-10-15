@@ -4,22 +4,29 @@
     <div class="container">
         <div class="row">
             <h2 class="title text-center admin-title">Edit Albums Items</h2>
+            @using (Html.BeginForm("AdminIndex", "Albums", FormMethod.Get))
+            {
+                <div class="search_box">
+                    <input type="text" placeholder="Search" name="SearchPattern" value="@ViewBag.SearchPattern" autofocus>
+                </div>
+                <input type="submit" value="Submit" class="hidden" />
+            }
             <table class="table">
                 <tr>
                     <th>
                         @Html.DisplayNameFor(model => model.Name)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Genre.Name)
+                        @Html.DisplayName("Genre")
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Artist.Name)
+                        @Html.DisplayName("Artist")
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.Price)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.ReleaseDate)
+                        @Html.DisplayName("Release Date")
                     </th>
                     <th></th>
                 </tr>

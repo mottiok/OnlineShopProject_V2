@@ -80,3 +80,11 @@ button.cart {
 .edit-album-image {
     width: 200px;
 }
+
+.search_box {
+    margin-bottom: 10px;
+}
+
+.price-range {
+    width: 265px;
+}
