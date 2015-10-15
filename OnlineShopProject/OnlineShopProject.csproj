@@ -272,6 +272,8 @@
     <Content Include="Content\images\product-details\similar2.jpg" />
     <Content Include="Content\images\product-details\similar3.jpg" />
     <Content Include="Content\images\shop\advertisement.jpg" />
+    <Content Include="Content\images\shop\checkbox_selected.jpg" />
+    <Content Include="Content\images\shop\checkbox_unselected.jpg" />
     <Content Include="Content\images\shop\product10.jpg" />
     <Content Include="Content\images\shop\product11.jpg" />
     <Content Include="Content\images\shop\product12.jpg" />
@@ -332,6 +334,7 @@
     <Content Include="Views\Account\ResetPassword.cshtml" />
     <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\ErrorPages\custom404.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

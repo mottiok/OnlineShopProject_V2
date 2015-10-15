@@ -36,7 +36,8 @@ namespace OnlineShopProject
                 "~/Content/css/animate.css",
                 "~/Content/css/main.css",
                 "~/Content/css/responsive.css",
-                "~/Content/css/albums.css"));
+                "~/Content/css/albums.css",
+                "~/Content/css/facets.css"));
 
             // Set EnableOptimizations to false for debugging. For more information,
             // visit http://go.microsoft.com/fwlink/?LinkId=301862
