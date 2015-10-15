@@ -52,7 +52,6 @@
                     <ul>
                         @for (int i = 2010; i > 1960; i -= 10)
                         {
-                            @*<li><a href="@Url.Action("Filter", "Albums", new {decate = i})">@i</a></li>*@
                             @Helpers.AddParamToUrl("decade", @i.ToString(), @i.ToString(), new UrlHelper(Request.RequestContext))
                         }
                     </ul>
@@ -73,9 +72,12 @@
                     <ul>
                         @for (int i = 0; i <= 15; i += 5)
                         {
-                            @Helpers.AddParamToUrl("price", i.ToString(), i.ToString() + '-' + (i + 5).ToString() + '$', new UrlHelper(Request.RequestContext))
+                            @Helpers.AddParamToUrl("price",
+                            i.ToString(),
+                                 Helpers.GetCurrencyAndPrice(ViewBag.user, i) + " - " + Helpers.GetCurrencyAndPrice(ViewBag.user, i + 5),
+                            new UrlHelper(Request.RequestContext))
                         }
-                        @Helpers.AddParamToUrl("price", "20", "20+ $", new UrlHelper(Request.RequestContext))
+                        @Helpers.AddParamToUrl("price", "20", Helpers.GetCurrencyAndPrice(ViewBag.user, 20) + "+", new UrlHelper(Request.RequestContext))
                     </ul>
                 </div>
             </div>

@@ -99,5 +99,17 @@
                 </div>
             </div>
         </div>
-    </div>
+        </div>
 </section>
+<br /><br /><br /><br />
+<section>
+    <div class="container">
+        <h2 class="title text-center">Shipping Addresses</h2>
+    </div>
+    <div id="gmap" class="gmapDisp">
+         <input type="hidden" id="mapAddresses" data-value="@ViewBag.mapAddresses" />
+     </div>
+</section>
+@section Scripts {
+    @Scripts.Render("~/Scripts/mapLoad.js")
+}

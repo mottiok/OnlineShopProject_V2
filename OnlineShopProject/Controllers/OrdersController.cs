@@ -27,8 +27,22 @@ namespace OnlineShopProject.Controllers
                 Include(x => x.OrderItems.
                     Select(a => a.Album).
                     Select(z => z.Artist));
+            
+            ViewBag.user = GetCurrentUser();
 
             return View(orderModels.ToList());
+        }
+        private ApplicationUser GetCurrentUser()
+        {
+            if (Request.IsAuthenticated)
+            {
+                string currentUserId = User.Identity.GetUserId();
+                ApplicationUser currentUser =
+                    db.Users.Where(x => x.Id == currentUserId).Include(x => x.CurrencyModel).SingleOrDefault();
+                return currentUser;
+            }
+
+            return null;
         }
 
         // GET: Orders/Details/5
@@ -57,6 +71,8 @@ namespace OnlineShopProject.Controllers
                 ViewBag.CartModel = cartModel;
                 ViewBag.CountryId = new SelectList(db.CountryModels, "Id", "Country");
                 ViewBag.BillingDetailsId = new SelectList(db.BillingDetailsModels, "Id", "FirstName"); // TODO: REMOVE UNUSED STUFF LIKE THIS
+
+                ViewBag.user = GetCurrentUser();
 
                 return View();
             }

@@ -20,11 +20,22 @@ namespace OnlineShopProject.Controllers
         {
             if (Request.IsAuthenticated)
             {
-                string currentUserId = User.Identity.GetUserId();
-                ApplicationUser currentUser = db.Users.Where(x => x.Id == currentUserId).Include(x => x.CurrencyModel).SingleOrDefault();
-                ViewBag.user = currentUser;
+                ViewBag.user = GetCurrentUser();
             }
             return View(db.CurrencyModels.ToList());
+        }
+
+        private ApplicationUser GetCurrentUser()
+        {
+            if (Request.IsAuthenticated)
+            {
+                string currentUserId = User.Identity.GetUserId();
+                ApplicationUser currentUser =
+                    db.Users.Where(x => x.Id == currentUserId).Include(x => x.CurrencyModel).SingleOrDefault();
+                return currentUser;
+            }
+
+            return null;
         }
 
         // GET: Currency/Details/5
@@ -65,19 +76,36 @@ namespace OnlineShopProject.Controllers
             return View(currencyModel);
         }
 
+        public ActionResult Update(int? id)
+        {
+            if (Request.IsAuthenticated)
+            {
+                ApplicationUser user = GetCurrentUser();
+                user.CurrencyModelId = (int)id;
+                db.SaveChanges();
+            }
+
+            return Redirect(Request.UrlReferrer.ToString());
+        }
+
         // GET: Currency/Edit/5
         public ActionResult Edit(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            CurrencyModel currencyModel = db.CurrencyModels.Find(id);
-            if (currencyModel == null)
-            {
-                return HttpNotFound();
-            }
-            return View(currencyModel);
+            ApplicationUser user = GetCurrentUser();
+            //db.Users.Where(x => x.Id == user.Id).Where(x => x.CurrencyModelId == id).
+            user.CurrencyModelId = (int)id;
+
+            db.SaveChanges();
+            //if (id == null)
+            //{
+            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            //}
+            //CurrencyModel currencyModel = db.CurrencyModels.Find(id);
+            //if (currencyModel == null)
+            //{
+            //    return HttpNotFound();
+            //}
+            return null;
         }
 
         // POST: Currency/Edit/5

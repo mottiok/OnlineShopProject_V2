@@ -1,3 +1,5 @@
+using OnlineShopProject.CurrencyReference;
+
 namespace OnlineShopProject.Migrations
 {
     using Microsoft.AspNet.Identity;
@@ -30,8 +32,8 @@ namespace OnlineShopProject.Migrations
 
             #region Currency
 
-            CurrencyModel defaultCurrency = new CurrencyModel { Sign = "$" };
-            context.CurrencyModels.AddOrUpdate(defaultCurrency, new CurrencyModel { Sign = "¤" }, new CurrencyModel { Sign = "€" });
+            CurrencyModel defaultCurrency = new CurrencyModel { Sign = "$", Currency = Currency.USD };
+            context.CurrencyModels.AddOrUpdate(defaultCurrency, new CurrencyModel { Sign = "¤", Currency = Currency.ILS}, new CurrencyModel { Sign = "€", Currency = Currency.EUR});
 
             #endregion
 

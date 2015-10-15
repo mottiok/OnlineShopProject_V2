@@ -1,6 +1,8 @@
 ﻿@using System.Collections.Specialized
+@using System.Runtime.InteropServices
 @using System.Web.Mvc
 @using System.Web.Routing
+@using OnlineShopProject.CurrencyReference
 @using OnlineShopProject.Models
 
 @helper AddParamToUrl(string name, string param, string text, UrlHelper urlHelper)
@@ -25,9 +27,24 @@
     {
         if (Request.IsAuthenticated)
         {
-            //return user.CurrencyModel.Sign;
+            return  user.CurrencyModel.Sign;
         }
         
         return "$";
+    }
+
+    public static string GetCurrencyAndPrice(ApplicationUser user, double amount)
+    {
+        if (Request.IsAuthenticated)
+        {
+            CurrencyConvertorSoapClient client = new CurrencyConvertorSoapClient("CurrencyConvertorSoap");
+            double conversion = client.ConversionRate(Currency.USD, user.CurrencyModel.Currency);
+
+            double afterConversion = conversion * amount;
+
+            return String.Format("{0:0.00}", afterConversion) + user.CurrencyModel.Sign;
+        }
+
+        return "$" + amount;
     }
 }

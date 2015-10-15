@@ -11,6 +11,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Owin;
 using OnlineShopProject.Models;
+using System.Data.Entity;
 
 namespace OnlineShopProject.Controllers
 {
@@ -272,9 +273,17 @@ namespace OnlineShopProject.Controllers
                 : "";
             ViewBag.HasLocalPassword = HasPassword();
             ViewBag.ReturnUrl = Url.Action("Manage");
+
+            var addresses = db.BillingDetailsModels.Include(a => a.Country).ToArray();
+            string addressesString = "";
+            for (int i = 0; i < addresses.Count(); i++)
+            {
+                addressesString += addresses.ElementAt(i).Address + " " + addresses.ElementAt(i).Country.Country + '~' ;
+            }
+            ViewBag.mapAddresses = addressesString.ToString();
             return View();
         }
-
+        
         //
         // POST: /Account/Manage
         [HttpPost]
@@ -562,6 +571,6 @@ namespace OnlineShopProject.Controllers
                 context.HttpContext.GetOwinContext().Authentication.Challenge(properties, LoginProvider);
             }
         }
-        #endregion
-    }
+            #endregion
+        }
 }

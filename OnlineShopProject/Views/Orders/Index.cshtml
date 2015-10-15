@@ -50,13 +50,13 @@
                                         <p>By @item.Album.Artist.Name</p>
                                     </td>
                                     <td class="cart_price">
-                                        <p>$@item.Album.Price</p>
+                                        <p>@Helpers.GetCurrencyAndPrice(ViewBag.user, item.Album.Price)</p>
                                     </td>
                                     <td class="cart_quantity" data-cart-item-id="@item.Id">
                                         <label class="quantity-label">@item.Quantity</label>
                                     </td>
                                     <td class="cart_total">
-                                        <p class="cart_total_price">$ @(item.Album.Price * item.Quantity)</p>
+                                        <p class="cart_total_price">@Helpers.GetCurrencyAndPrice(ViewBag.user, item.Album.Price * item.Quantity)</p>
                                         @{
                                 totalPrice += item.Album.Price * item.Quantity;
                                         }
@@ -70,7 +70,7 @@
                                         <tbody>
                                             <tr>
                                                 <td>Cart Sub Total</td>
-                                                <td>$@totalPrice</td>
+                                                <td>@Helpers.GetCurrencyAndPrice(ViewBag.user, totalPrice)</td>
                                             </tr>
                                             <tr class="shipping-cost">
                                                 <td>Shipping Cost</td>
@@ -78,7 +78,7 @@
                                             </tr>
                                             <tr>
                                                 <td>Total</td>
-                                                <td><span>$@totalPrice</span></td>
+                                                <td><span>@Helpers.GetCurrencyAndPrice(ViewBag.user, totalPrice)</span></td>
                                             </tr>
                                         </tbody>
                                     </table>

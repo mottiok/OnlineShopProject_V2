@@ -24,7 +24,7 @@
                             <h2>@Model.Name</h2>
                             <p>By @Model.Artist.Name</p>
                             <span>
-                                <span>US $@Model.Price</span>
+                                <span>@Helpers.GetCurrencyAndPrice(ViewBag.user, Model.Price)</span>
                             </span>
                             <div>
                                 @if (Request.IsAuthenticated)
