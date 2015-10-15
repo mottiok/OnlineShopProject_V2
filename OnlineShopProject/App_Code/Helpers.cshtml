@@ -17,8 +17,12 @@
     {
         dic[paramValues.GetKey(i)] = paramValues.Get(i);
     }
-    
-    <li><a href="@urlHelper.Action("Filter", "Albums", dic)" class="not_selected">@text</a></li>
+    <li>
+        <a href="@urlHelper.Action("Filter", "Albums", dic)" id="@name-@param">
+            <img src="../Content/images/shop/checkbox_unselected.jpg" />
+            @text
+        </a>
+    </li>
 }
 
 @functions {

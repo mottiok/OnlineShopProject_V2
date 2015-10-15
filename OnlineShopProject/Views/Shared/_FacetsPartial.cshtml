@@ -41,13 +41,13 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h4 class="panel-title">
-                    <a data-toggle="collapse" href="#decades">
+                    <a data-toggle="collapse" href="#decade">
                         <span class="badge pull-right"><i class="fa fa-plus"></i></span>
-                        Decades 
+                        Decades
                     </a>
                 </h4>
             </div>
-            <div id="decades" class="panel-collapse collapse">
+            <div id="decade" class="panel-collapse collapse">
                 <div class="panel-body">
                     <ul>
                         @for (int i = 2010; i > 1960; i -= 10)
@@ -73,7 +73,7 @@
                         @for (int i = 0; i <= 15; i += 5)
                         {
                             @Helpers.AddParamToUrl("price",
-                            i.ToString(),
+                                 i.ToString(),
                                  Helpers.GetCurrencyAndPrice(ViewBag.user, i) + " - " + Helpers.GetCurrencyAndPrice(ViewBag.user, i + 5),
                             new UrlHelper(Request.RequestContext))
                         }

@@ -7,10 +7,5 @@
 
 @foreach (var item in Model)
 {
-    @*<li>
-            <a href="@Url.Action("Filter", "Albums", new {artistId = item.Id})">
-                @Html.DisplayFor(modelItem => item.Name)
-            </a>
-        </li>*@
-    @Helpers.AddParamToUrl("artistId", item.Id.ToString(), item.Name, new UrlHelper(Request.RequestContext));
+    @Helpers.AddParamToUrl("artist", item.Id.ToString(), item.Name, new UrlHelper(Request.RequestContext));
 }

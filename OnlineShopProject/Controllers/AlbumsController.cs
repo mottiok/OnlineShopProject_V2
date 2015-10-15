@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
@@ -8,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using System.IO;
+using System.Web.Routing;
 using OnlineShopProject.Controllers;
 
 namespace OnlineShopProject.Models
@@ -51,7 +53,7 @@ namespace OnlineShopProject.Models
             return View(albumModels.ToList());
         }
 
-        public ActionResult Filter(int? genreId, int? artistId, int? decade, double? price)
+        public ActionResult Filter(int? genre, int? artist, int? decade, double? price)
         {
             IQueryable<AlbumModel> filterQuery = db.AlbumModels;
 
@@ -65,22 +67,29 @@ namespace OnlineShopProject.Models
                                                         a.ReleaseDate < higherDateTime);
             }
 
-            if (genreId != null)
+            if (genre != null)
             {
-                int inGenreId = (int)genreId;
+                int inGenreId = (int)genre;
                 filterQuery = filterQuery.Where(g => g.GenreId == inGenreId);
             }
 
-            if (artistId != null)
+            if (artist != null)
             {
-                int intArtistId = (int)artistId;
+                int intArtistId = (int)artist;
                 filterQuery = filterQuery.Where(a => a.ArtistId == intArtistId);
             }
 
             if (price != null)
             {
                 double doublePrice = (double)price;
-                filterQuery = filterQuery.Where(p => p.Price >= doublePrice && p.Price <= doublePrice + 5);
+                if (price == 20)
+                {
+                    filterQuery = filterQuery.Where(p => p.Price >= doublePrice);
+                }
+                else
+                {
+                    filterQuery = filterQuery.Where(p => p.Price >= doublePrice && p.Price <= doublePrice + 5);
+                }
             }
 
             SetCarModelId();
