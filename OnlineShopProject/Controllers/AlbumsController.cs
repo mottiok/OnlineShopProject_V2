@@ -21,7 +21,7 @@ namespace OnlineShopProject.Models
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Albums
-        public ActionResult Index(int page = 1, int pageSize = 5)
+        public ActionResult Index(int page = 1, int pageSize = 6)
         {
             var albumModels = db.AlbumModels.Include(a => a.Artist).Include(a => a.Genre).OrderByDescending(x => x.ReleaseDate);
 
@@ -61,7 +61,7 @@ namespace OnlineShopProject.Models
             return View(albumModels.ToList());
         }
 
-        public ActionResult Filter(int? genre, int? artist, int? decade, double? price, int page = 1, int pageSize = 5)
+        public ActionResult Filter(int? genre, int? artist, int? decade, double? price, int page = 1, int pageSize = 6)
         {
             IQueryable<AlbumModel> filterQuery = db.AlbumModels;
 

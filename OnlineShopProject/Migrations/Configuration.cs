@@ -21,7 +21,9 @@ namespace OnlineShopProject.Migrations
         {
             #region Countries
 
-            context.CountryModels.AddOrUpdate(new CountryModel() { Country = "Israel" },
+            CountryModel israel = new CountryModel { Country = "Israel" };
+
+            context.CountryModels.AddOrUpdate(israel,
                     new CountryModel() { Country = "Spain" },
                     new CountryModel() { Country = "Canada" },
                     new CountryModel() { Country = "Brazil" },
@@ -85,7 +87,7 @@ namespace OnlineShopProject.Migrations
             #region Admin Role & Power User
 
             ApplicationUser admin = new ApplicationUser { UserName = "admin@gmail.com", Email = "admin@gmail.com", CartModel = new CartModel(), CurrencyModel = defaultCurrency };
-            userManager.Create(admin, "Admin1!");
+            userManager.Create(admin, "password");
             context.Roles.AddOrUpdate(x => x.Name, new IdentityRole { Name = "Admins" });
             context.SaveChanges();
 
@@ -875,7 +877,219 @@ namespace OnlineShopProject.Migrations
 
             #endregion
 
+            #region Orders
 
+            context.OrderModels.AddOrUpdate(new OrderModel
+            {
+                ApplicationUser = andy,
+                CreatedAt = DateTime.Now,
+                BillingDetails = new BillingDetailsModel
+                {
+                    Address = "Degania 46",
+                    City = "Netanya",
+                    Country = israel,
+                    CreditCardNumber = "123456",
+                    CVV2 = 1,
+                    ExpirationMonth = 1,
+                    ExpirationYear = 2015,
+                    FirstName = "Andy",
+                    LastName = "Mika",
+                    Phone = "12114",
+                    ZipCode = "123123"
+                }
+            },
+            new OrderModel
+            {
+                ApplicationUser = andy,
+                CreatedAt = DateTime.Now,
+                BillingDetails = new BillingDetailsModel
+                {
+                    Address = "Uzi Hitman 5",
+                    City = "Holon",
+                    Country = israel,
+                    CreditCardNumber = "123456",
+                    CVV2 = 1,
+                    ExpirationMonth = 1,
+                    ExpirationYear = 2015,
+                    FirstName = "Andy",
+                    LastName = "Mika",
+                    Phone = "12114",
+                    ZipCode = "123123"
+                }
+            },
+            new OrderModel
+            {
+                ApplicationUser = andy,
+                CreatedAt = DateTime.Now,
+                BillingDetails = new BillingDetailsModel
+                {
+                    Address = "Borochov 27",
+                    City = "Holon",
+                    Country = israel,
+                    CreditCardNumber = "123456",
+                    CVV2 = 1,
+                    ExpirationMonth = 1,
+                    ExpirationYear = 2015,
+                    FirstName = "Andy",
+                    LastName = "Mika",
+                    Phone = "12114",
+                    ZipCode = "123123"
+                }
+            },
+            new OrderModel
+            {
+                ApplicationUser = andy,
+                CreatedAt = DateTime.Now,
+                BillingDetails = new BillingDetailsModel
+                {
+                    Address = "Herzl Street 5",
+                    City = "Yehud",
+                    Country = israel,
+                    CreditCardNumber = "123456",
+                    CVV2 = 1,
+                    ExpirationMonth = 1,
+                    ExpirationYear = 2015,
+                    FirstName = "Andy",
+                    LastName = "Mika",
+                    Phone = "12114",
+                    ZipCode = "123123"
+                }
+            },
+            new OrderModel
+            {
+                ApplicationUser = andy,
+                CreatedAt = DateTime.Now,
+                BillingDetails = new BillingDetailsModel
+                {
+                    Address = "Herzl Street 5",
+                    City = "Ness Ziyyona",
+                    Country = israel,
+                    CreditCardNumber = "123456",
+                    CVV2 = 1,
+                    ExpirationMonth = 1,
+                    ExpirationYear = 2015,
+                    FirstName = "Andy",
+                    LastName = "Mika",
+                    Phone = "12114",
+                    ZipCode = "123123"
+                }
+            },
+            new OrderModel
+            {
+                ApplicationUser = andy,
+                CreatedAt = DateTime.Now,
+                BillingDetails = new BillingDetailsModel
+                {
+                    Address = "Aluf Albert Mendler 24",
+                    City = "Tel Aviv-Yafo",
+                    Country = israel,
+                    CreditCardNumber = "123456",
+                    CVV2 = 1,
+                    ExpirationMonth = 1,
+                    ExpirationYear = 2015,
+                    FirstName = "Andy",
+                    LastName = "Mika",
+                    Phone = "12114",
+                    ZipCode = "123123"
+                }
+            },
+            new OrderModel
+            {
+                ApplicationUser = andy,
+                CreatedAt = DateTime.Now,
+                BillingDetails = new BillingDetailsModel
+                {
+                    Address = "Aluf Albert Mendler 8",
+                    City = "Tel Aviv-Yafo",
+                    Country = israel,
+                    CreditCardNumber = "123456",
+                    CVV2 = 1,
+                    ExpirationMonth = 1,
+                    ExpirationYear = 2015,
+                    FirstName = "Andy",
+                    LastName = "Mika",
+                    Phone = "12114",
+                    ZipCode = "123123"
+                }
+            },
+            new OrderModel
+            {
+                ApplicationUser = andy,
+                CreatedAt = DateTime.Now,
+                BillingDetails = new BillingDetailsModel
+                {
+                    Address = "Herzl St 5",
+                    City = "Ness Ziyyona",
+                    Country = israel,
+                    CreditCardNumber = "123456",
+                    CVV2 = 1,
+                    ExpirationMonth = 1,
+                    ExpirationYear = 2015,
+                    FirstName = "Andy",
+                    LastName = "Mika",
+                    Phone = "12114",
+                    ZipCode = "123123"
+                }
+            },
+            new OrderModel
+            {
+                ApplicationUser = andy,
+                CreatedAt = DateTime.Now,
+                BillingDetails = new BillingDetailsModel
+                {
+                    Address = "Ben Gurion St",
+                    City = "Ness Ziyyona",
+                    Country = israel,
+                    CreditCardNumber = "123456",
+                    CVV2 = 1,
+                    ExpirationMonth = 1,
+                    ExpirationYear = 2015,
+                    FirstName = "Andy",
+                    LastName = "Mika",
+                    Phone = "12114",
+                    ZipCode = "123123"
+                }
+            },
+            new OrderModel
+            {
+                ApplicationUser = andy,
+                CreatedAt = DateTime.Now,
+                BillingDetails = new BillingDetailsModel
+                {
+                    Address = "Yehuda ha-Levi Street 101",
+                    City = "Tel Aviv-Yafo",
+                    Country = israel,
+                    CreditCardNumber = "123456",
+                    CVV2 = 1,
+                    ExpirationMonth = 1,
+                    ExpirationYear = 2015,
+                    FirstName = "Andy",
+                    LastName = "Mika",
+                    Phone = "12114",
+                    ZipCode = "123123"
+                }
+            },
+            new OrderModel
+            {
+                ApplicationUser = andy,
+                CreatedAt = DateTime.Now,
+                BillingDetails = new BillingDetailsModel
+                {
+                    Address = "Herzl 2",
+                    City = "Rehovot",
+                    Country = israel,
+                    CreditCardNumber = "123456",
+                    CVV2 = 1,
+                    ExpirationMonth = 1,
+                    ExpirationYear = 2015,
+                    FirstName = "Andy",
+                    LastName = "Mika",
+                    Phone = "12114",
+                    ZipCode = "123123"
+                }
+            });
+
+            #endregion
 
         }
 
